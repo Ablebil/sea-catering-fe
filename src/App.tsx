@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import Homepage from "./pages/Homepage";
 import Navbar from "./components/Navbar";
+import Homepage from "./pages/Homepage";
+import MealPlansPage from "./pages/MealPlansPage";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/meal-plans" element={<MealPlansPage />} />
       </Routes>
     </>
   );
