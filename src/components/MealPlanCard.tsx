@@ -1,5 +1,6 @@
 import React from "react";
 import type { MealPlan } from "../types/MealPlan";
+import { formatCurrency } from "../utils/formatCurrency";
 
 interface MealPlanCardProps {
   plan: MealPlan;
@@ -7,13 +8,6 @@ interface MealPlanCardProps {
 }
 
 const MealPlanCard: React.FC<MealPlanCardProps> = ({ plan, onSeeMore }) => {
-  const formatPrice = (price: number) =>
-    new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      minimumFractionDigits: 0,
-    }).format(price);
-
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col">
       <img
@@ -26,7 +20,7 @@ const MealPlanCard: React.FC<MealPlanCardProps> = ({ plan, onSeeMore }) => {
           {plan.name}
         </h2>
         <p className="text-green-700 font-bold mb-2">
-          {formatPrice(plan.price)}/months
+          {formatCurrency(plan.price)}/months
         </p>
         <p className="text-gray-700 flex-grow">{plan.description}</p>
         <button
