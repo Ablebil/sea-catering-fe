@@ -21,8 +21,8 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+          <div className="hidden md:flex items-center space-x-6">
+            <div className="flex items-baseline space-x-4">
               <NavLink to="/" className={navLinkClass}>
                 Home
               </NavLink>
@@ -36,6 +36,10 @@ const Navbar = () => {
                 Contact Us
               </NavLink>
             </div>
+
+            <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300 text-sm cursor-pointer ml-4">
+              Login
+            </button>
           </div>
 
           {/* Hamburger Menu */}
@@ -83,7 +87,13 @@ const Navbar = () => {
             } transition-transform duration-300 ease-in-out z-50 md:hidden`}
           >
             <div className="flex items-center justify-between px-4 py-4 border-b border-green-700">
-              <div className="text-lg font-bold">SEA Catering</div>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300 text-sm cursor-pointer"
+              >
+                Login
+              </button>
+
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-white hover:text-green-300 focus:outline-none"
