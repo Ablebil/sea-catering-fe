@@ -7,6 +7,13 @@ interface MealPlanCardProps {
 }
 
 const MealPlanCard: React.FC<MealPlanCardProps> = ({ plan, onSeeMore }) => {
+  const formatPrice = (price: number) =>
+    new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    }).format(price);
+
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col">
       <img
@@ -18,7 +25,9 @@ const MealPlanCard: React.FC<MealPlanCardProps> = ({ plan, onSeeMore }) => {
         <h2 className="text-xl font-semibold text-green-900 mb-2">
           {plan.name}
         </h2>
-        <p className="text-green-700 font-bold mb-2">{plan.price}</p>
+        <p className="text-green-700 font-bold mb-2">
+          {formatPrice(plan.price)}/months
+        </p>
         <p className="text-gray-700 flex-grow">{plan.description}</p>
         <button
           onClick={() => onSeeMore(plan)}

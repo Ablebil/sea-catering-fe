@@ -10,7 +10,7 @@ const mealPlans: MealPlan[] = [
   {
     id: 1,
     name: "Healthy Plan",
-    price: "IDR 1.500.000/months",
+    price: 1500000,
     description: "Balanced meals for a healthy lifestyle.",
     details: "Includes breakfast, lunch, and dinner with balanced nutrients.",
     image: healthyFoodImg,
@@ -18,7 +18,7 @@ const mealPlans: MealPlan[] = [
   {
     id: 2,
     name: "Keto Plan",
-    price: "IDR 1.800.000/months",
+    price: 1800000,
     description: "Low-carb, high-fat meals for ketogenic diet.",
     details: "Focus on high-fat, low-carb meals to promote ketosis.",
     image: ketoFoodImg,
@@ -26,7 +26,7 @@ const mealPlans: MealPlan[] = [
   {
     id: 3,
     name: "Vegan Plan",
-    price: "IDR 1.200.000/months",
+    price: 1200000,
     description: "Delicious and nutritious plant-based meals.",
     details: "100% plant-based ingredients. Suitable for vegans.",
     image: veganFoodImg,
@@ -34,7 +34,7 @@ const mealPlans: MealPlan[] = [
   {
     id: 4,
     name: "Family Menu Plan",
-    price: "IDR 2.000.000/months",
+    price: 2000000,
     description: "Wholesome family-friendly meals for 3-4 persons.",
     details:
       "Includes a variety of family-friendly meals with options for kids and adults. Ideal for busy households.",
