@@ -37,7 +37,7 @@ const Navbar = () => {
               </NavLink>
             </div>
 
-            <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300 text-sm cursor-pointer ml-4">
+            <button className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300 text-sm cursor-pointer ml-4">
               Login
             </button>
           </div>
@@ -89,7 +89,7 @@ const Navbar = () => {
             <div className="flex items-center justify-between px-4 py-4 border-b border-green-700">
               <button
                 onClick={() => setIsOpen(false)}
-                className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300 text-sm cursor-pointer"
+                className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300 text-sm cursor-pointer"
               >
                 Login
               </button>

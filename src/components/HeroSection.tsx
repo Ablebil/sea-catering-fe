@@ -16,7 +16,7 @@ const HeroSection = () => {
         <p className="text-2xl md:text-3xl mb-6 text-green-100 drop-shadow-[0_2px_8px_rgba(16,64,16,0.7)]">
           Healthy Meals, Anytime, Anywhere
         </p>
-        <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition duration-300 w-fit text-lg cursor-pointer">
+        <button className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition duration-300 w-fit text-lg cursor-pointer">
           Login
         </button>
       </div>

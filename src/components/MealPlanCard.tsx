@@ -25,7 +25,7 @@ const MealPlanCard: React.FC<MealPlanCardProps> = ({ plan, onSeeMore }) => {
         <p className="text-gray-700 flex-grow">{plan.description}</p>
         <button
           onClick={() => onSeeMore(plan)}
-          className="mt-4 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
+          className="mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
         >
           See More Details
         </button>
