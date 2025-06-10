@@ -5,7 +5,7 @@ import {
   Footer,
 } from "../components";
 
-const Homepage = () => {
+const HomePage = () => {
   return (
     <main className="flex flex-col min-h-screen bg-white text-gray-800">
       <HeroSection />
@@ -18,4 +18,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default HomePage;

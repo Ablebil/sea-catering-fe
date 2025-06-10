@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Homepage from "./pages/Homepage";
+import HomePage from "./pages/Homepage";
 import MealPlansPage from "./pages/MealPlansPage";
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/meal-plans" element={<MealPlansPage />} />
       </Routes>
     </>
