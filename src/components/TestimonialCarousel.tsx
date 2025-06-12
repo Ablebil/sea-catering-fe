@@ -24,7 +24,7 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
   return (
     <div className="mb-12 max-w-6xl mx-auto px-2">
       {/* Desktop View */}
-      <div className="hidden sm:grid grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="hidden md:grid grid-cols-2 lg:grid-cols-5 gap-4">
         {testimonials.map((t, i) => (
           <div
             key={i}
@@ -56,7 +56,7 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
       </div>
 
       {/* Mobile View */}
-      <div className="block sm:hidden">
+      <div className="block md:hidden">
         <div className="overflow-hidden w-full flex justify-center">
           <div
             className="flex transition-transform duration-500 ease-in-out"
