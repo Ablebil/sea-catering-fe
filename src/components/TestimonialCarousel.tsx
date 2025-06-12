@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/24/solid";
 import type { Testimonial } from "../types/Testimonial";
 
@@ -10,6 +10,16 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
   testimonials,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
 
   return (
     <div className="mb-12 max-w-6xl mx-auto px-2">
