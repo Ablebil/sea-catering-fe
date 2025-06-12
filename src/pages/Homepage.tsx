@@ -2,6 +2,7 @@ import {
   HeroSection,
   FeaturesSection,
   WelcomeSection,
+  TestimonialSection,
   Footer,
 } from "../components";
 
@@ -13,6 +14,7 @@ const HomePage = () => {
         <FeaturesSection />
         <WelcomeSection />
       </section>
+      <TestimonialSection />
       <Footer />
     </main>
   );

@@ -1,8 +1,9 @@
-export { default as HeroSection } from './HeroSection';
-export { default as FeaturesSection } from './FeaturesSection';
-export { default as FeatureCard } from './FeatureCard';
-export { default as WelcomeSection } from './WelcomeSection';
-export { default as Footer } from './Footer';
-export {default as MealPlanCard} from './MealPlanCard'
-export {default as MealPlanModal} from './MealPlanModal'
-export {default as HorizontalScroll} from './HorizontalScroll'
+export { default as HeroSection } from "./HeroSection";
+export { default as FeaturesSection } from "./FeaturesSection";
+export { default as FeatureCard } from "./FeatureCard";
+export { default as WelcomeSection } from "./WelcomeSection";
+export { default as Footer } from "./Footer";
+export { default as MealPlanCard } from "./MealPlanCard";
+export { default as MealPlanModal } from "./MealPlanModal";
+export { default as HorizontalScroll } from "./HorizontalScroll";
+export { default as TestimonialSection } from "./TestimonialSection";
