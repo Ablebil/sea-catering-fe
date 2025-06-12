@@ -17,7 +17,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0 text-white font-bold text-xl">
-            SEA Catering
+            <NavLink to="/">SEA Catering</NavLink>
           </div>
 
           {/* Desktop Menu */}
