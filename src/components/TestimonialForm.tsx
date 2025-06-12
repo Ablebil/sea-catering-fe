@@ -2,10 +2,16 @@ import { useState } from "react";
 import { StarIcon } from "@heroicons/react/24/solid";
 
 interface TestimonialFormProps {
-  onSubmit: (message: string, rating: number, image: string) => void;
+  onSubmit: (
+    name: string,
+    message: string,
+    rating: number,
+    image: string
+  ) => void;
 }
 
 const TestimonialForm: React.FC<TestimonialFormProps> = ({ onSubmit }) => {
+  const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [rating, setRating] = useState(0);
   const [image, setImage] = useState<string | null>(null);
@@ -32,7 +38,8 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({ onSubmit }) => {
     }
 
     setError("");
-    onSubmit(message, rating, image);
+    onSubmit(name, message, rating, image);
+    setName("");
     setMessage("");
     setRating(0);
     setImage(null);
@@ -49,6 +56,23 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({ onSubmit }) => {
         <p className="text-red-600 font-medium text-sm -mt-2">{error}</p>
       )}
 
+      <input
+        type="text"
+        placeholder="Your Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+        className="w-full border rounded px-3 py-2"
+      />
+
+      <textarea
+        placeholder="Your message"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        required
+        className="w-full border rounded px-3 py-2"
+      />
+
       <div>
         <label className="block mb-1 font-medium">Rating:</label>
         <div className="flex items-center gap-1">
@@ -63,14 +87,6 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({ onSubmit }) => {
           ))}
         </div>
       </div>
-
-      <textarea
-        placeholder="Your message"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        required
-        className="w-full border rounded px-3 py-2"
-      />
 
       <div>
         <label className="block mb-1 font-medium">Upload Image:</label>
