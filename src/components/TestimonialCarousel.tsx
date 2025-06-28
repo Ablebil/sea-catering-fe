@@ -25,13 +25,13 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
     <div className="mb-12 max-w-6xl mx-auto px-2">
       {/* Desktop View */}
       <div className="hidden md:grid grid-cols-2 lg:grid-cols-5 gap-4">
-        {testimonials.map((t, i) => (
+        {testimonials.map((t) => (
           <div
-            key={i}
+            key={t.id}
             className="bg-white rounded-lg shadow-md p-4 flex flex-col"
           >
             <img
-              src={t.image}
+              src={t.photo_url}
               alt="User upload"
               className="w-full h-32 object-cover rounded mb-3"
             />
@@ -65,15 +65,15 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
               width: `${testimonials.length * 100}%`,
             }}
           >
-            {testimonials.map((t, i) => (
+            {testimonials.map((t) => (
               <div
-                key={i}
+                key={t.id}
                 className="flex-shrink-0 w-full flex justify-center"
                 style={{ width: "100%" }}
               >
                 <div className="bg-white rounded-lg shadow-md p-4 flex flex-col w-[280px] h-[360px] mx-auto">
                   <img
-                    src={t.image}
+                    src={t.photo_url}
                     alt="User upload"
                     className="w-full h-32 object-cover rounded mb-3"
                   />

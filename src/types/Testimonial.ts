@@ -1,6 +1,7 @@
 export interface Testimonial {
+  id: string;
   name: string;
   message: string;
   rating: number;
-  image: string;
+  photo_url: string;
 }

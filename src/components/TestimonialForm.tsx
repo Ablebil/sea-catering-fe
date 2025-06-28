@@ -2,27 +2,26 @@ import { useState } from "react";
 import { StarIcon } from "@heroicons/react/24/solid";
 
 interface TestimonialFormProps {
-  onSubmit: (
-    name: string,
-    message: string,
-    rating: number,
-    image: string
-  ) => void;
+  onSubmit: (formData: FormData) => void;
+  isSubmitting: boolean;
 }
 
-const TestimonialForm: React.FC<TestimonialFormProps> = ({ onSubmit }) => {
+const TestimonialForm: React.FC<TestimonialFormProps> = ({
+  onSubmit,
+  isSubmitting,
+}) => {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [rating, setRating] = useState(0);
-  const [image, setImage] = useState<string | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [error, setError] = useState("");
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setImage(reader.result as string);
-      reader.readAsDataURL(file);
+      setImageFile(file);
+      setImagePreview(URL.createObjectURL(file));
     }
   };
 
@@ -32,17 +31,26 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({ onSubmit }) => {
       setError("Please select a rating.");
       return;
     }
-    if (!image) {
+    if (!imageFile) {
       setError("Image is required.");
       return;
     }
 
     setError("");
-    onSubmit(name, message, rating, image);
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("message", message);
+    if (rating > 0) formData.append("rating", String(rating));
+    formData.append("photo", imageFile);
+
+    onSubmit(formData);
+
     setName("");
     setMessage("");
     setRating(0);
-    setImage(null);
+    setImageFile(null);
+    setImagePreview(null);
   };
 
   return (
@@ -99,9 +107,9 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({ onSubmit }) => {
             className="hidden"
           />
         </label>
-        {image && (
+        {imagePreview && (
           <img
-            src={image}
+            src={imagePreview}
             alt="Preview"
             className="mt-2 h-32 object-cover rounded"
           />
@@ -110,9 +118,10 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({ onSubmit }) => {
 
       <button
         type="submit"
+        disabled={isSubmitting}
         className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded cursor-pointer"
       >
-        Submit Testimonial
+        {isSubmitting ? "Submitting..." : "Submit Testimonial"}
       </button>
     </form>
   );

@@ -89,6 +89,15 @@ class ApiService {
     return response.data;
   }
 
+  async postWithFormData<T>(endpoint: string, formData: FormData): Promise<T> {
+    const response = await this.axiosInstance.post<T>(endpoint, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  }
+
   async put<T>(endpoint: string, data?: unknown): Promise<T> {
     const response = await this.axiosInstance.put<T>(endpoint, data);
     return response.data;

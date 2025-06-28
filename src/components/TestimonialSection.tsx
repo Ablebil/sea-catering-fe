@@ -1,57 +1,95 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 import TestimonialCarousel from "./TestimonialCarousel";
 import TestimonialForm from "./TestimonialForm";
 import type { Testimonial } from "../types/Testimonial";
-import healthyFoodImg from "../assets/healthy-food.jpg";
-import ketoFoodImg from "../assets/keto-food.jpg";
-import veganFoodImg from "../assets/vegan-food.jpg";
-import familyFoodImg from "../assets/family-food.jpg";
-
-const initialTestimonials: Testimonial[] = [
-  {
-    name: "James",
-    message: "Family plan was perfect—tasty and filling!",
-    rating: 5,
-    image: familyFoodImg,
-  },
-  {
-    name: "Emily",
-    message: "Loved the vegan meals. So fresh!",
-    rating: 4,
-    image: veganFoodImg,
-  },
-  {
-    name: "Michael",
-    message: "Keto plan fits my diet and tastes great!",
-    rating: 5,
-    image: ketoFoodImg,
-  },
-  {
-    name: "Sophia",
-    message: "Healthy plan keeps me energized!",
-    rating: 4,
-    image: healthyFoodImg,
-  },
-  {
-    name: "Daniel",
-    message: "Reliable service and great food!",
-    rating: 4,
-    image: familyFoodImg,
-  },
-];
+import { testimonialService } from "../services/testimonialService";
 
 const TestimonialSection = () => {
-  const [testimonials] = useState<Testimonial[]>(initialTestimonials);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
-  const handleAddTestimonial = () => {};
+  const fetchTestimonials = async () => {
+    setIsLoading(true);
+    const data = await testimonialService.getAllTestimonials();
+    setTestimonials(data);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchTestimonials();
+  }, []);
+
+  const handleAddTestimonial = async (formData: FormData) => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError(null);
+    try {
+      await testimonialService.createTestimonial(formData);
+      await fetchTestimonials();
+    } catch (err: unknown) {
+      console.error("Failed to create testimonial:", err);
+
+      if (
+        typeof err === "object" &&
+        err !== null &&
+        "message" in err &&
+        typeof (err as { message?: unknown }).message === "string"
+      ) {
+        setError((err as { message: string }).message);
+        return;
+      }
+
+      if (
+        typeof err === "object" &&
+        err !== null &&
+        "payload" in err &&
+        typeof (err as { payload?: unknown }).payload === "object" &&
+        (err as { payload?: unknown }).payload !== null
+      ) {
+        const payload = (err as { payload: Record<string, unknown> }).payload;
+        const messages = Object.values(payload)
+          .filter((v): v is string => typeof v === "string")
+          .join(", ");
+        if (messages) {
+          setError(messages);
+          return;
+        }
+      }
+
+      setError("An unknown error occured. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="bg-green-50 py-12 px-4">
       <h2 className="text-2xl md:text-3xl font-bold text-green-800 text-center mb-8">
         What Our Customers Say
       </h2>
-      <TestimonialCarousel testimonials={testimonials} />
-      <TestimonialForm onSubmit={handleAddTestimonial} />
+
+      {isLoading ? (
+        <p className="text-center">Loading testimonials...</p>
+      ) : (
+        <TestimonialCarousel testimonials={testimonials} />
+      )}
+
+      {error && <p className="text-center text-red-600 mb-4">{error}</p>}
+
+      <TestimonialForm
+        onSubmit={handleAddTestimonial}
+        isSubmitting={isSubmitting}
+      />
     </section>
   );
 };
