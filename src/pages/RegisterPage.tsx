@@ -8,6 +8,8 @@ import {
   validatePassword,
   getPasswordErrors,
 } from "../utils/authValidation";
+import { authService } from "../services/authService";
+import type { ApiError, ValidationErrorPayload } from "../services/api";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +21,7 @@ const RegisterPage = () => {
     name: "",
     email: "",
     password: "",
+    general: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -28,12 +31,12 @@ const RegisterPage = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
 
     if (errors[name as keyof typeof errors]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+      setErrors((prev) => ({ ...prev, [name]: "", general: "" }));
     }
   };
 
   const validateForm = (): boolean => {
-    const newErrors = { name: "", email: "", password: "" };
+    const newErrors = { name: "", email: "", password: "", general: "" };
     let isValid = true;
 
     if (!formData.name.trim()) {
@@ -75,26 +78,55 @@ const RegisterPage = () => {
     setIsLoading(true);
 
     try {
-      // TODO: Implement register API call
-      console.log("Register data:", formData);
+      await authService.register({
+        name: formData.name.trim(),
+        email: formData.email.toLowerCase().trim(),
+        password: formData.password,
+      });
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      navigate("/");
+      navigate("/verify-otp", {
+        state: { email: formData.email.toLowerCase().trim() },
+        replace: true,
+      });
     } catch (error) {
       console.error("Registration error:", error);
-      // Handle registration error
+      const apiError = error as ApiError;
+
+      if (apiError.code === 409) {
+        setErrors((prev) => ({ ...prev, email: "Email already exists" }));
+      } else if (apiError.payload && typeof apiError.payload === "object") {
+        const validationErrors = apiError.payload as ValidationErrorPayload;
+        const backendErrors = {
+          name: "",
+          email: "",
+          password: "",
+          general: "",
+        };
+
+        if (validationErrors.name) {
+          backendErrors.name = validationErrors.name;
+        }
+        if (validationErrors.email) {
+          backendErrors.email = validationErrors.email;
+        }
+        if (validationErrors.password) {
+          backendErrors.password = validationErrors.password;
+        }
+
+        setErrors((prev) => ({ ...prev, ...backendErrors }));
+      } else {
+        setErrors((prev) => ({
+          ...prev,
+          general: apiError.message || "Registration failed. Please try again.",
+        }));
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleGoogleSignUp = () => {
-    // TODO: Implement Google OAuth sign up
-    console.log("Google sign up clicked");
-    // Redirect to Google OAuth endpoint
-    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
+    window.location.href = authService.getGoogleLoginUrl();
   };
 
   return (
@@ -112,6 +144,12 @@ const RegisterPage = () => {
             </span>
           </div>
         </div>
+
+        {errors.general && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+            {errors.general}
+          </div>
+        )}
 
         <FormInput
           type="text"

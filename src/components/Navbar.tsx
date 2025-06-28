@@ -1,9 +1,14 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { UserCircleIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { useAuth } from "../hooks/useAuth";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     `px-3 py-2 rounded-md text-sm font-medium ${
@@ -16,6 +21,33 @@ const Navbar = () => {
     navigate("/login");
     setIsOpen(false);
   };
+
+  const handleDashboardClick = () => {
+    navigate("/dashboard");
+    setIsProfileDropdownOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    setIsProfileDropdownOpen(false);
+    navigate("/");
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsProfileDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav className="bg-green-900 sticky top-0 z-50">
@@ -43,12 +75,45 @@ const Navbar = () => {
               </NavLink>
             </div>
 
-            <button
-              onClick={handleLoginClick}
-              className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300 text-sm cursor-pointer ml-4"
-            >
-              Login
-            </button>
+            {/* Auth Section */}
+            {isAuthenticated ? (
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() =>
+                    setIsProfileDropdownOpen(!isProfileDropdownOpen)
+                  }
+                  className="flex items-center space-x-2 text-white hover:text-green-300 transition duration-300 ml-4"
+                >
+                  <UserCircleIcon className="h-6 w-6" />
+                  <ChevronDownIcon className="h-4 w-4" />
+                </button>
+
+                {/* Dropdown Menu */}
+                {isProfileDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                    <button
+                      onClick={handleDashboardClick}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-300"
+                    >
+                      Dashboard
+                    </button>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-300"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={handleLoginClick}
+                className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300 text-sm cursor-pointer ml-4"
+              >
+                Login
+              </button>
+            )}
           </div>
 
           {/* Hamburger Menu */}
@@ -96,12 +161,19 @@ const Navbar = () => {
             } transition-transform duration-300 ease-in-out z-50 md:hidden`}
           >
             <div className="flex items-center justify-between px-4 py-4 border-b border-green-700">
-              <button
-                onClick={handleLoginClick}
-                className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300 text-sm cursor-pointer"
-              >
-                Login
-              </button>
+              {isAuthenticated ? (
+                <div className="flex items-center space-x-2">
+                  <UserCircleIcon className="h-6 w-6 text-white" />
+                  <span className="text-sm">Profile</span>
+                </div>
+              ) : (
+                <button
+                  onClick={handleLoginClick}
+                  className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300 text-sm cursor-pointer"
+                >
+                  Login
+                </button>
+              )}
 
               <button
                 onClick={() => setIsOpen(false)}
@@ -153,6 +225,25 @@ const Navbar = () => {
               >
                 Contact Us
               </NavLink>
+
+              {/* Mobile Auth Menu */}
+              {isAuthenticated && (
+                <>
+                  <hr className="border-green-700 my-2" />
+                  <button
+                    onClick={handleDashboardClick}
+                    className="text-left px-3 py-2 text-white hover:text-green-300"
+                  >
+                    Dashboard
+                  </button>
+                  <button
+                    onClick={handleLogout}
+                    className="text-left px-3 py-2 text-white hover:text-green-300"
+                  >
+                    Logout
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
