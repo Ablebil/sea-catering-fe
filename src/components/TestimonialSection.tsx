@@ -39,34 +39,33 @@ const TestimonialSection = () => {
     } catch (err: unknown) {
       console.error("Failed to create testimonial:", err);
 
-      if (
-        typeof err === "object" &&
-        err !== null &&
-        "message" in err &&
-        typeof (err as { message?: unknown }).message === "string"
-      ) {
-        setError((err as { message: string }).message);
-        return;
-      }
+      if (typeof err === "object" && err !== null) {
+        if (
+          "payload" in err &&
+          typeof (err as { payload?: unknown }).payload === "object" &&
+          (err as { payload?: unknown }).payload !== null
+        ) {
+          const payload = (err as { payload: Record<string, unknown> }).payload;
+          const messages = Object.values(payload)
+            .filter((v): v is string => typeof v === "string")
+            .join(", ");
 
-      if (
-        typeof err === "object" &&
-        err !== null &&
-        "payload" in err &&
-        typeof (err as { payload?: unknown }).payload === "object" &&
-        (err as { payload?: unknown }).payload !== null
-      ) {
-        const payload = (err as { payload: Record<string, unknown> }).payload;
-        const messages = Object.values(payload)
-          .filter((v): v is string => typeof v === "string")
-          .join(", ");
-        if (messages) {
-          setError(messages);
+          if (messages) {
+            setError(messages);
+            return;
+          }
+        }
+
+        if (
+          "message" in err &&
+          typeof (err as { message?: unknown }).message === "string"
+        ) {
+          setError((err as { message: string }).message);
           return;
         }
       }
 
-      setError("An unknown error occured. Please try again.");
+      setError("An unknown error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
