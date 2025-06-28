@@ -7,3 +7,6 @@ export { default as MealPlanCard } from "./MealPlanCard";
 export { default as MealPlanModal } from "./MealPlanModal";
 export { default as HorizontalScroll } from "./HorizontalScroll";
 export { default as TestimonialSection } from "./TestimonialSection";
+export { default as AuthLayout } from "./AuthLayout";
+export { default as FormInput } from "./FormInput";
+export { default as GoogleButton } from "./GoogleButton";

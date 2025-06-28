@@ -1,8 +1,9 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     `px-3 py-2 rounded-md text-sm font-medium ${
@@ -10,6 +11,11 @@ const Navbar = () => {
         ? "text-green-500 font-semibold"
         : "text-white hover:text-green-300"
     }`;
+
+  const handleLoginClick = () => {
+    navigate("/login");
+    setIsOpen(false);
+  };
 
   return (
     <nav className="bg-green-900 sticky top-0 z-50">
@@ -37,7 +43,10 @@ const Navbar = () => {
               </NavLink>
             </div>
 
-            <button className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300 text-sm cursor-pointer ml-4">
+            <button
+              onClick={handleLoginClick}
+              className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300 text-sm cursor-pointer ml-4"
+            >
               Login
             </button>
           </div>
@@ -88,7 +97,7 @@ const Navbar = () => {
           >
             <div className="flex items-center justify-between px-4 py-4 border-b border-green-700">
               <button
-                onClick={() => setIsOpen(false)}
+                onClick={handleLoginClick}
                 className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300 text-sm cursor-pointer"
               >
                 Login
