@@ -1,8 +1,7 @@
 export interface MealPlan {
-  id: number;
+  id: string;
   name: string;
-  price: number;
   description: string;
-  details: string;
-  image: string;
+  price: number;
+  photo_url: string;
 }

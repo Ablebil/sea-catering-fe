@@ -1,49 +1,57 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MealPlanModal, HorizontalScroll } from "../components";
+import { mealPlanService } from "../services/mealPlanService";
 import type { MealPlan } from "../types/MealPlan";
-import healthyFoodImg from "../assets/healthy-food.jpg";
-import ketoFoodImg from "../assets/keto-food.jpg";
-import veganFoodImg from "../assets/vegan-food.jpg";
-import familyFoodImg from "../assets/family-food.jpg";
-
-const mealPlans: MealPlan[] = [
-  {
-    id: 1,
-    name: "Healthy Plan",
-    price: 1500000,
-    description: "Balanced meals for a healthy lifestyle.",
-    details: "Includes breakfast, lunch, and dinner with balanced nutrients.",
-    image: healthyFoodImg,
-  },
-  {
-    id: 2,
-    name: "Keto Plan",
-    price: 1800000,
-    description: "Low-carb, high-fat meals for ketogenic diet.",
-    details: "Focus on high-fat, low-carb meals to promote ketosis.",
-    image: ketoFoodImg,
-  },
-  {
-    id: 3,
-    name: "Vegan Plan",
-    price: 1200000,
-    description: "Delicious and nutritious plant-based meals.",
-    details: "100% plant-based ingredients. Suitable for vegans.",
-    image: veganFoodImg,
-  },
-  {
-    id: 4,
-    name: "Family Menu Plan",
-    price: 2000000,
-    description: "Wholesome family-friendly meals for 3-4 persons.",
-    details:
-      "Includes a variety of family-friendly meals with options for kids and adults. Ideal for busy households.",
-    image: familyFoodImg,
-  },
-];
 
 const MealPlansPage = () => {
+  const [plans, setPlans] = useState<MealPlan[]>([]);
   const [selectedPlan, setSelectedPlan] = useState<MealPlan | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const data = await mealPlanService.getAllMealPlans();
+        setPlans(data);
+      } catch (err) {
+        setError("Failed to load meal plans. Please try again later.");
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPlans();
+  }, []);
+
+  const handleSeeMore = async (planId: string) => {
+    try {
+      const planDetails = await mealPlanService.getMealPlanById(planId);
+      if (planDetails) {
+        setSelectedPlan(planDetails);
+      } else {
+        setError("Could not find details for the selected plan.");
+      }
+    } catch (err) {
+      setError("Failed to fetch plan details.");
+      console.error(err);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setSelectedPlan(null);
+  };
+
+  if (isLoading) {
+    return <div className="text-center py-10">Loading meal plans...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center py-10 text-red-600">{error}</div>;
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
@@ -51,13 +59,10 @@ const MealPlansPage = () => {
         Our Meal Plans
       </h1>
 
-      <HorizontalScroll plans={mealPlans} onSeeMore={setSelectedPlan} />
+      <HorizontalScroll plans={plans} onSeeMore={handleSeeMore} />
 
       {selectedPlan && (
-        <MealPlanModal
-          plan={selectedPlan}
-          onClose={() => setSelectedPlan(null)}
-        />
+        <MealPlanModal plan={selectedPlan} onClose={handleCloseModal} />
       )}
     </div>
   );

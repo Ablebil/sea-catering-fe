@@ -5,7 +5,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 
 interface HorizontalScrollProps {
   plans: MealPlan[];
-  onSeeMore: (plan: MealPlan) => void;
+  onSeeMore: (planId: string) => void;
 }
 
 const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
