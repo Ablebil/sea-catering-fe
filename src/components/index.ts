@@ -3,7 +3,7 @@ export { default as FeaturesSection } from "./landing/FeaturesSection";
 export { default as WelcomeSection } from "./landing/WelcomeSection";
 
 export { default as MealPlanModal } from "./mealplan/MealPlanModal";
-export { default as HorizontalScroll } from "./mealplan/HorizontalScroll";
+export { default as MealPlanHorizontalScroll } from "./mealplan/MealPlanHorizontalScroll";
 
 export { default as TestimonialSection } from "./testimonial/TestimonialSection";
 

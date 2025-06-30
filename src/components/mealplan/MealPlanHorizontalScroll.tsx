@@ -3,12 +3,12 @@ import type { MealPlan } from "../../types/MealPlan";
 import MealPlanCard from "./MealPlanCard";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 
-interface HorizontalScrollProps {
+interface MealPlanHorizontalScrollProps {
   plans: MealPlan[];
   onSeeMore: (planId: string) => void;
 }
 
-const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
+const MealPlanHorizontalScroll: React.FC<MealPlanHorizontalScrollProps> = ({
   plans,
   onSeeMore,
 }) => {
@@ -57,4 +57,4 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
   );
 };
 
-export default HorizontalScroll;
+export default MealPlanHorizontalScroll;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MealPlanModal, HorizontalScroll } from "../components";
+import { MealPlanModal, MealPlanHorizontalScroll } from "../components";
 import { mealPlanService } from "../api/services/mealPlanService";
 import type { MealPlan } from "../types/MealPlan";
 import { LoadingSpinner } from "../components";
@@ -60,7 +60,7 @@ const MealPlansPage = () => {
         Our Meal Plans
       </h1>
 
-      <HorizontalScroll plans={plans} onSeeMore={handleSeeMore} />
+      <MealPlanHorizontalScroll plans={plans} onSeeMore={handleSeeMore} />
 
       {selectedPlan && (
         <MealPlanModal plan={selectedPlan} onClose={handleCloseModal} />

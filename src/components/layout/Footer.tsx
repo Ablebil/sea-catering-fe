@@ -75,6 +75,7 @@ const Footer = () => {
         </div>
       </div>
 
+      {/* Copyright */}
       <div className="text-center text-xs text-green-300 mt-6">
         &copy; {new Date().getFullYear()} SEA Catering. All rights reserved.
       </div>
