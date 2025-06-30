@@ -1,5 +1,6 @@
 import React from "react";
 import type { MealPlan } from "../types/MealPlan";
+import { formatCurrency } from "../utils/formatCurrency";
 
 interface MealPlanModalProps {
   plan: MealPlan;
@@ -21,7 +22,9 @@ const MealPlanModal: React.FC<MealPlanModalProps> = ({ plan, onClose }) => {
           <h2 className="text-2xl font-semibold text-green-900 mb-2">
             {plan.name}
           </h2>
-          <p className="text-green-700 font-bold mb-2">{plan.price}</p>
+          <p className="text-green-700 font-bold mb-2">
+            {formatCurrency(plan.price)}
+          </p>
           <p className="text-gray-700 mb-4">{plan.description}</p>
           <button
             onClick={onClose}

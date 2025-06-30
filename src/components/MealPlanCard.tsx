@@ -22,7 +22,9 @@ const MealPlanCard: React.FC<MealPlanCardProps> = ({ plan, onSeeMore }) => {
         <p className="text-green-700 font-bold mb-2">
           {formatCurrency(plan.price)}
         </p>
-        <p className="text-gray-700 flex-grow">{plan.description}</p>
+        <p className="text-gray-700 flex-grow line-clamp-2">
+          {plan.description}
+        </p>
         <button
           onClick={() => onSeeMore(plan.id)}
           className="mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 cursor-pointer"
