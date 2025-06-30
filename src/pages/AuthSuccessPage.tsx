@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const AuthSuccessPage = () => {
   const navigate = useNavigate();
@@ -62,13 +63,9 @@ const AuthSuccessPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
-        <p className="text-gray-600">Completing your login...</p>
-        <p className="text-sm text-gray-500 mt-2">
-          Redirecting to dashboard...
-        </p>
-      </div>
+      <LoadingSpinner
+        text={"Completing your login...\nRedirecting to dashboard..."}
+      />
     </div>
   );
 };

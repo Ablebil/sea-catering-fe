@@ -5,6 +5,7 @@ import TestimonialCarousel from "./TestimonialCarousel";
 import TestimonialForm from "./TestimonialForm";
 import type { Testimonial } from "../types/Testimonial";
 import { testimonialService } from "../services/testimonialService";
+import LoadingSpinner from "./LoadingSpinner";
 
 const TestimonialSection = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
@@ -78,7 +79,7 @@ const TestimonialSection = () => {
       </h2>
 
       {isLoading ? (
-        <p className="text-center">Loading testimonials...</p>
+        <LoadingSpinner text="Loading testimonials..." />
       ) : (
         <TestimonialCarousel testimonials={testimonials} />
       )}

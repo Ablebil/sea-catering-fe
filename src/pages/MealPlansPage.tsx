@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { MealPlanModal, HorizontalScroll } from "../components";
 import { mealPlanService } from "../services/mealPlanService";
 import type { MealPlan } from "../types/MealPlan";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const MealPlansPage = () => {
   const [plans, setPlans] = useState<MealPlan[]>([]);
@@ -46,7 +47,7 @@ const MealPlansPage = () => {
   };
 
   if (isLoading) {
-    return <div className="text-center py-10">Loading meal plans...</div>;
+    return <LoadingSpinner text="Loading meal plans..." />;
   }
 
   if (error) {
