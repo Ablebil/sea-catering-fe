@@ -25,11 +25,13 @@ const Navbar = () => {
   const handleDashboardClick = () => {
     navigate("/dashboard");
     setIsProfileDropdownOpen(false);
+    setIsOpen(false);
   };
 
   const handleLogout = () => {
     logout();
     setIsProfileDropdownOpen(false);
+    setIsOpen(false);
     navigate("/");
   };
 
@@ -232,13 +234,13 @@ const Navbar = () => {
                   <hr className="border-green-700 my-2" />
                   <button
                     onClick={handleDashboardClick}
-                    className="text-left px-3 py-2 text-white hover:text-green-300"
+                    className="w-full text-left px-3 py-2 rounded-md text-sm font-medium text-white hover:text-green-300 cursor-pointer"
                   >
                     Dashboard
                   </button>
                   <button
                     onClick={handleLogout}
-                    className="text-left px-3 py-2 text-white hover:text-green-300"
+                    className="w-full text-left px-3 py-2 rounded-md text-sm font-medium text-white hover:text-green-300 cursor-pointer"
                   >
                     Logout
                   </button>
