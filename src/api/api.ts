@@ -2,7 +2,10 @@ import axios, {
   type AxiosInstance,
   type AxiosResponse,
   type AxiosError,
+  type InternalAxiosRequestConfig,
 } from "axios";
+import { tokenManager } from "../utils/tokenManager";
+import { authService } from "./services/authService";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -31,8 +34,14 @@ export interface ApiError {
   payload?: ValidationErrorPayload | unknown;
 }
 
+interface RetryableAxiosRequestConfig extends InternalAxiosRequestConfig {
+  _retry?: boolean;
+}
+
 class ApiService {
   private axiosInstance: AxiosInstance;
+  private isRefreshing: boolean = false;
+  private refreshSubscribers: Array<(token: string) => void> = [];
 
   constructor(baseURL: string = API_BASE_URL) {
     this.axiosInstance = axios.create({
@@ -45,6 +54,10 @@ class ApiService {
 
     this.axiosInstance.interceptors.request.use(
       (config) => {
+        const token = tokenManager.getAccessToken();
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
         return config;
       },
       (error) => Promise.reject(error)
@@ -52,7 +65,56 @@ class ApiService {
 
     this.axiosInstance.interceptors.response.use(
       (response: AxiosResponse) => response,
-      (error: AxiosError<ErrorResponseData>) => {
+      async (error: AxiosError<ErrorResponseData>) => {
+        const originalRequest = error.config as RetryableAxiosRequestConfig;
+
+        if (
+          error.response?.status === 401 &&
+          !originalRequest._retry &&
+          tokenManager.getRefreshToken()
+        ) {
+          originalRequest._retry = true;
+
+          if (!this.isRefreshing) {
+            this.isRefreshing = true;
+            try {
+              const refreshToken = tokenManager.getRefreshToken();
+              if (!refreshToken) throw new Error("No refresh token");
+
+              const response = await authService.refreshToken({
+                refresh_token: refreshToken,
+              });
+
+              const { access_token, refresh_token } = response.payload!;
+              tokenManager.setTokens(
+                access_token,
+                refresh_token,
+                tokenManager.isRemembered()
+              );
+
+              this.axiosInstance.defaults.headers.common[
+                "Authorization"
+              ] = `Bearer ${access_token}`;
+
+              this.refreshSubscribers.forEach((cb) => cb(access_token));
+              this.refreshSubscribers = [];
+            } catch (refreshError) {
+              tokenManager.clearTokens();
+              window.location.href = "/login";
+              return Promise.reject(refreshError);
+            } finally {
+              this.isRefreshing = false;
+            }
+          }
+
+          return new Promise((resolve) => {
+            this.refreshSubscribers.push((token: string) => {
+              originalRequest.headers["Authorization"] = `Bearer ${token}`;
+              resolve(this.axiosInstance(originalRequest));
+            });
+          });
+        }
+
         const apiError: ApiError = {
           code: error.response?.status || 0,
           message: "An error occurred",
