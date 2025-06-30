@@ -1,12 +1,16 @@
-export { default as HeroSection } from "./HeroSection";
-export { default as FeaturesSection } from "./FeaturesSection";
-export { default as FeatureCard } from "./FeatureCard";
-export { default as WelcomeSection } from "./WelcomeSection";
-export { default as Footer } from "./Footer";
-export { default as MealPlanCard } from "./MealPlanCard";
-export { default as MealPlanModal } from "./MealPlanModal";
-export { default as HorizontalScroll } from "./HorizontalScroll";
-export { default as TestimonialSection } from "./TestimonialSection";
-export { default as AuthLayout } from "./AuthLayout";
-export { default as FormInput } from "./FormInput";
-export { default as GoogleButton } from "./GoogleButton";
+export { default as HeroSection } from "./landing/HeroSection";
+export { default as FeaturesSection } from "./landing/FeaturesSection";
+export { default as WelcomeSection } from "./landing/WelcomeSection";
+
+export { default as MealPlanModal } from "./mealplan/MealPlanModal";
+export { default as HorizontalScroll } from "./mealplan/HorizontalScroll";
+
+export { default as TestimonialSection } from "./testimonial/TestimonialSection";
+
+export { default as Navbar } from "./layout/Navbar";
+export { default as Footer } from "./layout/Footer";
+export { default as AuthLayout } from "./layout/AuthLayout";
+
+export { default as FormInput } from "./common/FormInput";
+export { default as GoogleButton } from "./common/GoogleButton";
+export { default as LoadingSpinner } from "./common/LoadingSpinner";

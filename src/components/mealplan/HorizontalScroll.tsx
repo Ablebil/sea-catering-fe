@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import type { MealPlan } from "../types/MealPlan";
+import { useRef } from "react";
+import type { MealPlan } from "../../types/MealPlan";
 import MealPlanCard from "./MealPlanCard";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 

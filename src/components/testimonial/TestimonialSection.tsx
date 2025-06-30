@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import TestimonialCarousel from "./TestimonialCarousel";
 import TestimonialForm from "./TestimonialForm";
-import type { Testimonial } from "../types/Testimonial";
-import { testimonialService } from "../services/testimonialService";
-import LoadingSpinner from "./LoadingSpinner";
+import type { Testimonial } from "../../types/Testimonial";
+import { testimonialService } from "../../api/services/testimonialService";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 const TestimonialSection = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);

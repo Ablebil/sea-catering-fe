@@ -1,5 +1,3 @@
-import React from "react";
-
 interface FormInputProps {
   type: string;
   label: string;

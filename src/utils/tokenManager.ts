@@ -1,4 +1,4 @@
-import { apiService } from "../services/api";
+import { apiService } from "../api/api";
 
 export interface TokenData {
   accessToken: string;

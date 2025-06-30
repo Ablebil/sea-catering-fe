@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/24/solid";
-import type { Testimonial } from "../types/Testimonial";
+import type { Testimonial } from "../../types/Testimonial";
 
 interface TestimonialCarouselProps {
   testimonials: Testimonial[];

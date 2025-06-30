@@ -3,7 +3,6 @@ import {
   FeaturesSection,
   WelcomeSection,
   TestimonialSection,
-  Footer,
 } from "../components";
 
 const HomePage = () => {
@@ -15,7 +14,6 @@ const HomePage = () => {
         <WelcomeSection />
       </section>
       <TestimonialSection />
-      <Footer />
     </main>
   );
 };

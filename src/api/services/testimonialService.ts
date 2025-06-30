@@ -1,5 +1,5 @@
-import { apiService, type ApiResponse } from "./api";
-import type { Testimonial } from "../types/Testimonial";
+import { apiService, type ApiResponse } from "../api";
+import type { Testimonial } from "../../types/Testimonial";
 
 class TestimonialService {
   async getAllTestimonials(): Promise<Testimonial[]> {

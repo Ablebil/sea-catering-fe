@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { MealPlanModal, HorizontalScroll } from "../components";
-import { mealPlanService } from "../services/mealPlanService";
+import { mealPlanService } from "../api/services/mealPlanService";
 import type { MealPlan } from "../types/MealPlan";
-import LoadingSpinner from "../components/LoadingSpinner";
+import { LoadingSpinner } from "../components";
 
 const MealPlansPage = () => {
   const [plans, setPlans] = useState<MealPlan[]>([]);

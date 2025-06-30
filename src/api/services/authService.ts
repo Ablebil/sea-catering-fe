@@ -1,5 +1,5 @@
-import { apiService } from "./api";
-import type { ApiResponse } from "./api";
+import { apiService } from "../api";
+import type { ApiResponse } from "../api";
 
 export interface RegisterRequest {
   name: string;

@@ -1,5 +1,5 @@
-import { apiService, type ApiResponse } from "./api";
-import type { MealPlan } from "../types/MealPlan";
+import { apiService, type ApiResponse } from "../api";
+import type { MealPlan } from "../../types/MealPlan";
 
 class MealPlanService {
   async getAllMealPlans(): Promise<MealPlan[]> {

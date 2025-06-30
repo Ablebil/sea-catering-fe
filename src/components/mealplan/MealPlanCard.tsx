@@ -1,6 +1,5 @@
-import React from "react";
-import type { MealPlan } from "../types/MealPlan";
-import { formatCurrency } from "../utils/formatCurrency";
+import type { MealPlan } from "../../types/MealPlan";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 interface MealPlanCardProps {
   plan: MealPlan;

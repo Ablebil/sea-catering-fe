@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthLayout from "../components/AuthLayout";
-import FormInput from "../components/FormInput";
-import GoogleButton from "../components/GoogleButton";
+import { AuthLayout, FormInput, GoogleButton } from "../components";
 import { validateEmail, validatePassword } from "../utils/authValidation";
-import { authService } from "../services/authService";
+import { authService } from "../api/services/authService";
 import { useAuth } from "../hooks/useAuth";
-import type { ApiError, ValidationErrorPayload } from "../services/api";
+import type { ApiError, ValidationErrorPayload } from "../api/api";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({

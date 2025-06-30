@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { AuthProvider } from "./contexts/AuthContext";
-import Navbar from "./components/Navbar";
+import { Navbar, Footer } from "./components";
 import HomePage from "./pages/HomePage";
 import MealPlansPage from "./pages/MealPlansPage";
 import LoginPage from "./pages/LoginPage";
@@ -28,6 +28,7 @@ function App() {
         <Route path="/success" element={<AuthSuccessPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
       </Routes>
+      <Footer />
     </AuthProvider>
   );
 }
