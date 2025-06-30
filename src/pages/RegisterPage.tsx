@@ -130,7 +130,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <AuthLayout title="Create Account" subtitle="Sign up to get started">
+    <AuthLayout title="Create Account">
       <form onSubmit={handleSubmit} className="space-y-6">
         <GoogleButton onClick={handleGoogleSignUp} />
 
@@ -257,7 +257,7 @@ const RegisterPage = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
+          className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 cursor-pointer"
         >
           {isLoading ? "Creating account..." : "Sign Up"}
         </button>

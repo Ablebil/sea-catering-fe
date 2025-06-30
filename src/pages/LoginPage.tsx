@@ -123,7 +123,7 @@ const LoginPage = () => {
   };
 
   return (
-    <AuthLayout title="Welcome Back" subtitle="Sign in to your account">
+    <AuthLayout title="Welcome Back">
       <form onSubmit={handleSubmit} className="space-y-6">
         <GoogleButton onClick={handleGoogleLogin} />
 
@@ -188,7 +188,7 @@ const LoginPage = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
+          className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 cursor-pointer"
         >
           {isLoading ? "Signing in..." : "Sign In"}
         </button>

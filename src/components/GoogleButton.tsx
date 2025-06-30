@@ -3,7 +3,7 @@ const GoogleButton: React.FC<{ onClick: () => void }> = ({ onClick }) => {
     <button
       type="button"
       onClick={onClick}
-      className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-2 px-4 rounded-lg transition duration-300 mb-4"
+      className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-2 px-4 rounded-lg transition duration-300 mb-4 cursor-pointer"
     >
       <svg className="w-5 h-5" viewBox="0 0 24 24">
         <path

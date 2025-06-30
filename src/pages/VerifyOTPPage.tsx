@@ -89,7 +89,7 @@ const VerifyOTPPage = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
+          className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 cursor-pointer"
         >
           {isLoading ? "Verifying..." : "Verify OTP"}
         </button>

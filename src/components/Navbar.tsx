@@ -82,7 +82,7 @@ const Navbar = () => {
                   onClick={() =>
                     setIsProfileDropdownOpen(!isProfileDropdownOpen)
                   }
-                  className="flex items-center space-x-2 text-white hover:text-green-300 transition duration-300 ml-4"
+                  className="flex items-center space-x-2 text-white hover:text-green-300 transition duration-300 ml-4 cursor-pointer"
                 >
                   <UserCircleIcon className="h-6 w-6" />
                   <ChevronDownIcon className="h-4 w-4" />
@@ -93,13 +93,13 @@ const Navbar = () => {
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
                     <button
                       onClick={handleDashboardClick}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-300"
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-300 cursor-pointer"
                     >
                       Dashboard
                     </button>
                     <button
                       onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-300"
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-300 cursor-pointer"
                     >
                       Logout
                     </button>
