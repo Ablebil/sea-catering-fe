@@ -89,8 +89,6 @@ const SubscriptionStepsSection = () => {
           </p>
         </div>
 
-        {/* Desktop View */}
-        {/* Desktop View - Corrected */}
         <div className="hidden lg:flex justify-between items-start">
           {steps.map((step, index) => {
             const colors = getColorClasses(step.color);
@@ -101,14 +99,12 @@ const SubscriptionStepsSection = () => {
                 )}
 
                 <div className="relative mb-6">
-                  {/* Step Number */}
                   <div
                     className={`absolute -top-3 -left-3 ${colors.bg} ${colors.text} rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold border-2 border-white shadow-md z-30`}
                   >
                     {step.step}
                   </div>
 
-                  {/* Main Icon Circle */}
                   <div
                     className={`${colors.bg} ${colors.text} rounded-full w-16 h-16 flex items-center justify-center mx-auto relative z-20 shadow-lg border-2 ${colors.border}`}
                   >
@@ -127,7 +123,6 @@ const SubscriptionStepsSection = () => {
           })}
         </div>
 
-        {/* Mobile View */}
         <div className="block lg:hidden space-y-6">
           {steps.map((step, index) => {
             const colors = getColorClasses(step.color);
@@ -137,14 +132,12 @@ const SubscriptionStepsSection = () => {
                 className={`flex items-start space-x-4 p-6 bg-gray-50 rounded-xl border-l-4 ${colors.border}`}
               >
                 <div className="flex-shrink-0 relative">
-                  {/* Step Number */}
                   <div
                     className={`absolute -top-2 -left-2 ${colors.bg} ${colors.text} rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold border-2 border-white z-30`}
                   >
                     {step.step}
                   </div>
 
-                  {/* Main Icon Circle */}
                   <div
                     className={`${colors.bg} ${colors.text} rounded-full w-12 h-12 flex items-center justify-center relative z-20`}
                   >

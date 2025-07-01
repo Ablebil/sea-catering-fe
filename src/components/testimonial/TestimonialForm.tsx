@@ -21,9 +21,8 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        // 5MB limit
-        setError("Image size should be less than 5MB");
+      if (file.size > 10 * 1024 * 1024) {
+        setError("Image size should be less than 10MB");
         return;
       }
       setImageFile(file);
@@ -63,7 +62,6 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({
 
     onSubmit(formData);
 
-    // Reset form
     setName("");
     setMessage("");
     setRating(0);
@@ -75,7 +73,6 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({
   return (
     <div className="max-w-2xl mx-auto">
       <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-        {/* Header */}
         <div className="text-center mb-8">
           <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
             <StarIcon className="w-8 h-8 text-white" />
@@ -89,14 +86,12 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Error Message */}
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
               <p className="text-red-700 text-sm font-medium">{error}</p>
             </div>
           )}
 
-          {/* Name Input */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Your Name <span className="text-red-500">*</span>
@@ -111,7 +106,6 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({
             />
           </div>
 
-          {/* Message Input */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Your Review <span className="text-red-500">*</span>
@@ -129,7 +123,6 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({
             </p>
           </div>
 
-          {/* Rating Input */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-3">
               Your Rating <span className="text-red-500">*</span>
@@ -161,7 +154,6 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({
             </div>
           </div>
 
-          {/* Image Upload */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-3">
               Your Photo <span className="text-red-500">*</span>
@@ -202,7 +194,6 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({
             )}
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={isSubmitting}

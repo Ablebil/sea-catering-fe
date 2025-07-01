@@ -14,12 +14,10 @@ const ProfileSection = () => {
   return (
     <div className="sticky top-8">
       <div className="bg-white rounded-lg shadow-md p-6">
-        {/* Header */}
         <h2 className="text-xl font-semibold text-green-900 mb-6">
           Profile Information
         </h2>
 
-        {/* Profile Details */}
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -49,7 +47,6 @@ const ProfileSection = () => {
           </div>
         </div>
 
-        {/* Quick Stats */}
         <div className="mt-6 pt-6 border-t border-gray-200">
           <h3 className="text-sm font-medium text-gray-700 mb-3">
             Quick Stats

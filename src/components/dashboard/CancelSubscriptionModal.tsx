@@ -46,18 +46,14 @@ const CancelSubscriptionModal = ({
 
   return (
     <>
-      {/* Backdrop */}
       <div className="fixed inset-0 bg-black/50 z-40" onClick={onClose}></div>
 
-      {/* Modal */}
       <div className="fixed inset-0 flex items-center justify-center z-50 px-4">
         <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
-          {/* Header */}
           <h3 className="text-lg font-semibold text-red-900 mb-4">
             Cancel Subscription
           </h3>
 
-          {/* Warning */}
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
             <p className="text-red-800 font-medium mb-2">⚠️ Warning</p>
             <p className="text-red-700 text-sm">
@@ -66,14 +62,12 @@ const CancelSubscriptionModal = ({
             </p>
           </div>
 
-          {/* Error Message */}
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
               <p className="text-red-700 text-sm">{error}</p>
             </div>
           )}
 
-          {/* Confirmation Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -89,7 +83,6 @@ const CancelSubscriptionModal = ({
               />
             </div>
 
-            {/* Action Buttons */}
             <div className="flex gap-3 pt-4">
               <button
                 type="button"

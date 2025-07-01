@@ -2,7 +2,6 @@ const Footer = () => {
   return (
     <footer className="bg-green-900 text-green-100 py-8 mt-auto">
       <div className="max-w-6xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
-        {/* Contact Info */}
         <div>
           <h4 className="text-lg font-semibold mb-2">Contact Us</h4>
 
@@ -25,7 +24,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Quick Links */}
         <div>
           <h4 className="text-lg font-semibold mb-2">Quick Links</h4>
           <ul className="space-y-1">
@@ -52,7 +50,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Social Media */}
         <div>
           <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
           <ul className="space-y-1">
@@ -75,7 +72,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Copyright */}
       <div className="text-center text-xs text-green-300 mt-6">
         &copy; {new Date().getFullYear()} SEA Catering. All rights reserved.
       </div>

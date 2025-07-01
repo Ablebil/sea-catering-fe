@@ -23,7 +23,6 @@ const ContactForm = () => {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear messages when user starts typing
     if (error) setError("");
     if (successMessage) setSuccessMessage("");
   };
@@ -33,7 +32,6 @@ const ContactForm = () => {
     setIsSubmitting(true);
     setError("");
 
-    // Basic validation
     if (
       !formData.name.trim() ||
       !formData.email.trim() ||
@@ -44,7 +42,6 @@ const ContactForm = () => {
       return;
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setError("Please enter a valid email address.");
@@ -52,9 +49,7 @@ const ContactForm = () => {
       return;
     }
 
-    // Simulate loading and success
     try {
-      // Simulate API call delay
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       setSuccessMessage(
@@ -75,14 +70,12 @@ const ContactForm = () => {
         Send us a Message
       </h2>
 
-      {/* Success Message */}
       {successMessage && (
         <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
           <p className="text-green-700 font-medium">{successMessage}</p>
         </div>
       )}
 
-      {/* Error Message */}
       {error && (
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
           <p className="text-red-700 font-medium">{error}</p>
@@ -90,7 +83,6 @@ const ContactForm = () => {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Name */}
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">
             Full Name <span className="text-red-500">*</span>
@@ -106,7 +98,6 @@ const ContactForm = () => {
           />
         </div>
 
-        {/* Email */}
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">
             Email Address <span className="text-red-500">*</span>
@@ -122,7 +113,6 @@ const ContactForm = () => {
           />
         </div>
 
-        {/* Subject */}
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">
             Subject
@@ -137,7 +127,6 @@ const ContactForm = () => {
           />
         </div>
 
-        {/* Message */}
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">
             Message <span className="text-red-500">*</span>
@@ -157,7 +146,6 @@ const ContactForm = () => {
           </p>
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           disabled={isSubmitting}

@@ -59,12 +59,10 @@ const Navbar = () => {
     <nav className="bg-green-900 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <div className="flex-shrink-0 text-white font-bold text-xl">
             <NavLink to="/">SEA Catering</NavLink>
           </div>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6">
             <div className="flex items-baseline space-x-4">
               <NavLink to="/" className={navLinkClass}>
@@ -81,7 +79,6 @@ const Navbar = () => {
               </NavLink>
             </div>
 
-            {/* Auth Section */}
             {isAuthenticated ? (
               <div className="relative" ref={dropdownRef}>
                 <button
@@ -100,7 +97,6 @@ const Navbar = () => {
                   <ChevronDownIcon className="h-4 w-4" />
                 </button>
 
-                {/* Dropdown Menu */}
                 {isProfileDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
                     <button
@@ -128,7 +124,6 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -152,7 +147,6 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         <div
           className={`fixed top-0 right-0 h-full w-64 bg-green-900 text-white transform ${
             isOpen ? "translate-x-0" : "translate-x-full"
@@ -229,7 +223,6 @@ const Navbar = () => {
               Contact Us
             </NavLink>
 
-            {/* Mobile Auth Menu */}
             {isAuthenticated && (
               <>
                 <hr className="border-green-700 my-2" />

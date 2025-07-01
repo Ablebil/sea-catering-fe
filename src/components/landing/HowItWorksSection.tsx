@@ -50,21 +50,17 @@ const HowItWorksSection = () => {
           </p>
         </div>
 
-        {/* Desktop Layout with connecting lines */}
         <div className="hidden lg:flex justify-between items-start">
           {steps.map((step, index) => (
             <div key={index} className="relative flex-1 text-center px-4">
-              {/* Connecting Line */}
               {index < steps.length - 1 && (
                 <div className="absolute top-8 left-1/2 w-full h-0.5 bg-green-200 z-10" />
               )}
 
               <div className="relative inline-block mb-6">
-                {/* Main Icon Circle */}
                 <div className="bg-green-600 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto relative z-20 shadow-lg">
                   {step.icon}
                 </div>
-                {/* Step Number */}
                 <div className="absolute -top-2 -left-2 bg-green-100 text-green-700 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold border-2 border-white shadow-md z-30">
                   {step.step}
                 </div>
@@ -80,7 +76,6 @@ const HowItWorksSection = () => {
           ))}
         </div>
 
-        {/* Mobile & Tablet Layout */}
         <div className="block lg:hidden">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {steps.map((step, index) => (
@@ -89,11 +84,9 @@ const HowItWorksSection = () => {
                 className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm"
               >
                 <div className="flex-shrink-0 relative">
-                  {/* Main Icon Circle */}
                   <div className="bg-green-600 text-white rounded-full w-14 h-14 flex items-center justify-center relative z-20">
                     {step.icon}
                   </div>
-                  {/* Step Number */}
                   <div className="absolute -top-2 -left-2 bg-green-100 text-green-700 rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold border-2 border-white z-30">
                     {step.step}
                   </div>

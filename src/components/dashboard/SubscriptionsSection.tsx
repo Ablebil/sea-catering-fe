@@ -31,7 +31,6 @@ const SubscriptionsSection = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold text-green-900">
           My Subscriptions
@@ -44,14 +43,12 @@ const SubscriptionsSection = () => {
         </button>
       </div>
 
-      {/* Error Message */}
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
           <p className="text-red-700">{error}</p>
         </div>
       )}
 
-      {/* Subscriptions List */}
       {subscriptions.length === 0 ? (
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
           <div className="max-w-sm mx-auto">

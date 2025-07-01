@@ -15,7 +15,6 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Batasi testimonials maksimal 6
   const displayedTestimonials = testimonials.slice(0, 6);
 
   useEffect(() => {
@@ -65,7 +64,6 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
 
   return (
     <div className="mb-12 max-w-6xl mx-auto px-4">
-      {/* Desktop View - Enhanced Grid */}
       <div className="hidden lg:block">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {displayedTestimonials.map((testimonial) => (
@@ -73,7 +71,6 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
               key={testimonial.id}
               className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 transform hover:-translate-y-1"
             >
-              {/* User Image with Gradient Border */}
               <div className="relative mb-4">
                 <div className="w-16 h-16 mx-auto rounded-full p-0.5 bg-gradient-to-r from-green-400 to-green-600">
                   <img
@@ -84,17 +81,14 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
                 </div>
               </div>
 
-              {/* Rating */}
               <div className="flex justify-center mb-4">
                 {renderStars(testimonial.rating)}
               </div>
 
-              {/* Message */}
               <blockquote className="text-gray-700 text-center mb-4 leading-relaxed italic">
                 "{testimonial.message}"
               </blockquote>
 
-              {/* Author */}
               <div className="text-center">
                 <p className="font-semibold text-green-800 text-lg">
                   {testimonial.name}
@@ -106,7 +100,6 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
         </div>
       </div>
 
-      {/* Mobile/Tablet View - Enhanced Carousel */}
       <div className="block lg:hidden relative">
         <div className="overflow-hidden rounded-2xl">
           <div
@@ -118,7 +111,6 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
             {displayedTestimonials.map((testimonial) => (
               <div key={testimonial.id} className="flex-shrink-0 w-full px-4">
                 <div className="bg-white rounded-2xl shadow-lg p-8 mx-auto max-w-md border border-gray-100">
-                  {/* User Image */}
                   <div className="relative mb-6">
                     <div className="w-20 h-20 mx-auto rounded-full p-0.5 bg-gradient-to-r from-green-400 to-green-600">
                       <img
@@ -129,17 +121,14 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
                     </div>
                   </div>
 
-                  {/* Rating */}
                   <div className="flex justify-center mb-6">
                     {renderStars(testimonial.rating)}
                   </div>
 
-                  {/* Message */}
                   <blockquote className="text-gray-700 text-center mb-6 leading-relaxed italic text-lg">
                     "{testimonial.message}"
                   </blockquote>
 
-                  {/* Author */}
                   <div className="text-center">
                     <p className="font-semibold text-green-800 text-xl">
                       {testimonial.name}
@@ -152,7 +141,6 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
           </div>
         </div>
 
-        {/* Navigation Arrows */}
         <button
           onClick={goToPrevious}
           className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-green-600 p-2 rounded-full shadow-lg transition duration-200 z-10"
@@ -167,7 +155,6 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
           <ChevronRightIcon className="w-6 h-6" />
         </button>
 
-        {/* Enhanced Indicators */}
         <div className="flex justify-center gap-2 mt-6">
           {displayedTestimonials.map((_, i) => (
             <button

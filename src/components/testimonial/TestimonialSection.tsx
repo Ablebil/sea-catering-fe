@@ -89,7 +89,6 @@ const TestimonialSection = () => {
   return (
     <section className="bg-gradient-to-br from-green-50 via-white to-green-50 py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-green-900 mb-4">
             What Our Customers Say
@@ -101,7 +100,6 @@ const TestimonialSection = () => {
           <div className="w-24 h-1 bg-gradient-to-r from-green-400 to-green-600 mx-auto mt-6 rounded-full"></div>
         </div>
 
-        {/* Success Message */}
         {successMessage && (
           <div className="max-w-2xl mx-auto mb-8">
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -112,7 +110,6 @@ const TestimonialSection = () => {
           </div>
         )}
 
-        {/* Testimonials Display */}
         {isLoading ? (
           <div className="py-12">
             <LoadingSpinner text="Loading testimonials..." />
@@ -121,7 +118,6 @@ const TestimonialSection = () => {
           <TestimonialCarousel testimonials={testimonials} />
         )}
 
-        {/* Error Message */}
         {error && (
           <div className="max-w-2xl mx-auto mb-8">
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
@@ -130,7 +126,6 @@ const TestimonialSection = () => {
           </div>
         )}
 
-        {/* Testimonial Form */}
         <TestimonialForm
           onSubmit={handleAddTestimonial}
           isSubmitting={isSubmitting}

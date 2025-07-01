@@ -47,7 +47,6 @@ const SubscriptionCard = ({
   return (
     <>
       <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-        {/* Header */}
         <div className="flex justify-between items-start mb-4">
           <div>
             <h3 className="text-lg font-semibold text-gray-900">
@@ -69,7 +68,6 @@ const SubscriptionCard = ({
           </div>
         </div>
 
-        {/* Subscription Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
             <p className="text-sm font-medium text-gray-600">Meal Types:</p>
@@ -106,7 +104,6 @@ const SubscriptionCard = ({
           )}
         </div>
 
-        {/* Pause Period (if paused) */}
         {subscription.status === "paused" &&
           subscription.pause_start_date &&
           subscription.pause_end_date && (
@@ -121,7 +118,6 @@ const SubscriptionCard = ({
             </div>
           )}
 
-        {/* Delivery Address */}
         <div className="mb-4">
           <p className="text-sm font-medium text-gray-600">Delivery Address:</p>
           <p className="text-sm text-gray-900">
@@ -134,7 +130,6 @@ const SubscriptionCard = ({
           )}
         </div>
 
-        {/* Allergies */}
         {subscription.allergies && (
           <div className="mb-4">
             <p className="text-sm font-medium text-gray-600">Allergies:</p>
@@ -142,7 +137,6 @@ const SubscriptionCard = ({
           </div>
         )}
 
-        {/* Action Buttons */}
         <div className="flex gap-3 pt-4 border-t border-gray-200">
           {canPause && (
             <button
@@ -164,7 +158,6 @@ const SubscriptionCard = ({
         </div>
       </div>
 
-      {/* Modals */}
       {showPauseModal && (
         <PauseSubscriptionModal
           subscription={subscription}

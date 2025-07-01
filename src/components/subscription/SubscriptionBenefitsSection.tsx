@@ -79,7 +79,6 @@ const SubscriptionBenefitsSection = () => {
           ))}
         </div>
 
-        {/* Trust indicators */}
         <div className="mt-12 bg-white rounded-xl shadow-sm border border-green-100 p-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div>

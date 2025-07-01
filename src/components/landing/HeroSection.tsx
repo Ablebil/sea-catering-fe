@@ -6,17 +6,14 @@ const HeroSection = () => {
 
   return (
     <section className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden mb-12">
-      {/* Hero Image */}
       <img
         src={heroImage}
         alt="Healthy meals from SEA Catering"
         className="absolute top-0 left-0 w-full h-full object-cover"
       />
 
-      {/* Overlay */}
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-green-900/70 via-green-900/40 to-green-900/10 z-10" />
 
-      {/* Content */}
       <div className="absolute inset-0 flex flex-col justify-center pl-12 md:pl-20 text-left z-20">
         <h1 className="text-5xl md:text-7xl font-extrabold mb-4 text-white drop-shadow-[0_2px_8px_rgba(16,64,16,0.7)]">
           SEA Catering
