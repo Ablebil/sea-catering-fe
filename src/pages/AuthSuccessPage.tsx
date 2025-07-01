@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { LoadingSpinner } from "../components";
+import { getUserFromToken } from "../utils/jwtUtils";
 
 const AuthSuccessPage = () => {
   const navigate = useNavigate();
@@ -34,8 +35,14 @@ const AuthSuccessPage = () => {
       try {
         login(accessToken, refreshToken, false);
 
+        const userFromToken = getUserFromToken();
+
         setTimeout(() => {
-          navigate("/dashboard", { replace: true });
+          if (userFromToken?.role === "admin") {
+            navigate("/admin/dashboard", { replace: true });
+          } else {
+            navigate("/dashboard", { replace: true });
+          }
         }, 2000);
       } catch (error) {
         console.error("Login error:", error);

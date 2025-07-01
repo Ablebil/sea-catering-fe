@@ -6,7 +6,7 @@ import { useAuth } from "../../hooks/useAuth";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +23,11 @@ const Navbar = () => {
   };
 
   const handleDashboardClick = () => {
-    navigate("/dashboard");
+    if (user?.role === "admin") {
+      navigate("/admin/dashboard");
+    } else {
+      navigate("/dashboard");
+    }
     setIsProfileDropdownOpen(false);
     setIsOpen(false);
   };
@@ -87,6 +91,12 @@ const Navbar = () => {
                   className="flex items-center space-x-2 text-white hover:text-green-300 transition duration-300 ml-4 cursor-pointer"
                 >
                   <UserCircleIcon className="h-6 w-6" />
+                  <div className="text-sm text-left">
+                    <div className="font-medium">{user?.name}</div>
+                    {user?.role === "admin" && (
+                      <div className="text-xs text-green-300">Admin</div>
+                    )}
+                  </div>
                   <ChevronDownIcon className="h-4 w-4" />
                 </button>
 
@@ -118,11 +128,11 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Hamburger Menu */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white hover:text-green-300 focus:outline-none focus:text-green-300"
+              className="text-white hover:text-green-300 focus:outline-none"
             >
               <svg
                 className="h-6 w-6"
@@ -131,122 +141,112 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                {isOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        <div
+          className={`fixed top-0 right-0 h-full w-64 bg-green-900 text-white transform ${
+            isOpen ? "translate-x-0" : "translate-x-full"
+          } transition-transform duration-300 ease-in-out z-50 md:hidden`}
+        >
+          <div className="flex items-center justify-between px-4 py-4 border-b border-green-700">
+            {isAuthenticated ? (
+              <div className="flex items-center space-x-2">
+                <UserCircleIcon className="h-6 w-6 text-white" />
+                <div>
+                  <div className="text-sm font-medium">{user?.name}</div>
+                  {user?.role === "admin" && (
+                    <div className="text-xs text-green-300">Admin</div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={handleLoginClick}
+                className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300 text-sm cursor-pointer"
+              >
+                Login
+              </button>
+            )}
+
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-white hover:text-green-300 focus:outline-none"
+            >
+              <svg
+                className="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
 
-          {/* Mobile Menu */}
-          {isOpen && (
-            <div
-              className="fixed inset-0 bg-black/40 z-40"
+          <div className="flex flex-col px-4 pt-4 space-y-4">
+            <NavLink
+              to="/"
+              className={navLinkClass}
               onClick={() => setIsOpen(false)}
-            ></div>
-          )}
-          <div
-            className={`fixed top-0 right-0 h-full w-64 bg-green-900 text-white transform ${
-              isOpen ? "translate-x-0" : "translate-x-full"
-            } transition-transform duration-300 ease-in-out z-50 md:hidden`}
-          >
-            <div className="flex items-center justify-between px-4 py-4 border-b border-green-700">
-              {isAuthenticated ? (
-                <div className="flex items-center space-x-2">
-                  <UserCircleIcon className="h-6 w-6 text-white" />
-                  <span className="text-sm">Profile</span>
-                </div>
-              ) : (
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/meal-plans"
+              className={navLinkClass}
+              onClick={() => setIsOpen(false)}
+            >
+              Meal Plans
+            </NavLink>
+            <NavLink
+              to="/subscription"
+              className={navLinkClass}
+              onClick={() => setIsOpen(false)}
+            >
+              Subscription
+            </NavLink>
+            <NavLink
+              to="/contact"
+              className={navLinkClass}
+              onClick={() => setIsOpen(false)}
+            >
+              Contact Us
+            </NavLink>
+
+            {/* Mobile Auth Menu */}
+            {isAuthenticated && (
+              <>
+                <hr className="border-green-700 my-2" />
                 <button
-                  onClick={handleLoginClick}
-                  className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-5 rounded-lg shadow-md transition duration-300 text-sm cursor-pointer"
+                  onClick={handleDashboardClick}
+                  className="w-full text-left px-3 py-2 rounded-md text-sm font-medium text-white hover:text-green-300 cursor-pointer"
                 >
-                  Login
+                  Dashboard
                 </button>
-              )}
-
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-white hover:text-green-300 focus:outline-none"
-              >
-                <svg
-                  className="h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left px-3 py-2 rounded-md text-sm font-medium text-white hover:text-green-300 cursor-pointer"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
-
-            <div className="flex flex-col px-4 pt-4 space-y-4">
-              <NavLink
-                to="/"
-                className={navLinkClass}
-                onClick={() => setIsOpen(false)}
-              >
-                Home
-              </NavLink>
-              <NavLink
-                to="/meal-plans"
-                className={navLinkClass}
-                onClick={() => setIsOpen(false)}
-              >
-                Meal Plans
-              </NavLink>
-              <NavLink
-                to="/subscription"
-                className={navLinkClass}
-                onClick={() => setIsOpen(false)}
-              >
-                Subscription
-              </NavLink>
-              <NavLink
-                to="/contact"
-                className={navLinkClass}
-                onClick={() => setIsOpen(false)}
-              >
-                Contact Us
-              </NavLink>
-
-              {/* Mobile Auth Menu */}
-              {isAuthenticated && (
-                <>
-                  <hr className="border-green-700 my-2" />
-                  <button
-                    onClick={handleDashboardClick}
-                    className="w-full text-left px-3 py-2 rounded-md text-sm font-medium text-white hover:text-green-300 cursor-pointer"
-                  >
-                    Dashboard
-                  </button>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-3 py-2 rounded-md text-sm font-medium text-white hover:text-green-300 cursor-pointer"
-                  >
-                    Logout
-                  </button>
-                </>
-              )}
-            </div>
+                  Logout
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

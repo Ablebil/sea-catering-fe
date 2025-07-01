@@ -5,6 +5,7 @@ import { validateEmail, validatePassword } from "../utils/authValidation";
 import { authService } from "../api/services/authService";
 import { useAuth } from "../hooks/useAuth";
 import type { ApiError, ValidationErrorPayload } from "../api/api";
+import { getUserFromToken } from "../utils/jwtUtils";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -26,46 +27,31 @@ const LoginPage = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
 
     if (errors[name as keyof typeof errors]) {
-      setErrors((prev) => ({ ...prev, [name]: "", general: "" }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
-  };
-
-  const validateForm = (): boolean => {
-    const newErrors = { email: "", password: "", general: "" };
-    let isValid = true;
-
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-      isValid = false;
-    } else if (!validateEmail(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
-      isValid = false;
-    }
-
-    if (!formData.password) {
-      newErrors.password = "Password is required";
-      isValid = false;
-    } else if (!validatePassword(formData.password)) {
-      newErrors.password = "Password does not meet requirements";
-      isValid = false;
-    }
-
-    setErrors(newErrors);
-    return isValid;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!validateForm()) {
+    const emailError = validateEmail(formData.email);
+    const passwordError = validatePassword(formData.password);
+
+    if (emailError || passwordError) {
+      setErrors({
+        email: emailError,
+        password: passwordError,
+        general: "",
+      });
       return;
     }
 
     setIsLoading(true);
+    setErrors({ email: "", password: "", general: "" });
 
     try {
       const response = await authService.login({
-        email: formData.email.toLowerCase().trim(),
+        email: formData.email,
         password: formData.password,
       });
 
@@ -75,7 +61,16 @@ const LoginPage = () => {
           response.payload.refresh_token,
           rememberMe
         );
-        navigate("/dashboard");
+
+        setTimeout(() => {
+          const userFromToken = getUserFromToken();
+
+          if (userFromToken?.role === "admin") {
+            navigate("/admin/dashboard");
+          } else {
+            navigate("/dashboard");
+          }
+        }, 100);
       }
     } catch (error) {
       console.error("Login error:", error);

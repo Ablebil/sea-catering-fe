@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthLayout, FormInput, GoogleButton } from "../components";
-import {
-  validateEmail,
-  validatePassword,
-  getPasswordErrors,
-} from "../utils/authValidation";
+import { validateEmail, validatePassword } from "../utils/authValidation";
 import { authService } from "../api/services/authService";
 import type { ApiError, ValidationErrorPayload } from "../api/api";
 
@@ -45,20 +41,15 @@ const RegisterPage = () => {
       isValid = false;
     }
 
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-      isValid = false;
-    } else if (!validateEmail(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
+    const emailError = validateEmail(formData.email);
+    if (emailError) {
+      newErrors.email = emailError;
       isValid = false;
     }
 
-    if (!formData.password) {
-      newErrors.password = "Password is required";
-      isValid = false;
-    } else if (!validatePassword(formData.password)) {
-      const passwordErrors = getPasswordErrors(formData.password);
-      newErrors.password = passwordErrors[0];
+    const passwordError = validatePassword(formData.password);
+    if (passwordError) {
+      newErrors.password = passwordError;
       isValid = false;
     }
 

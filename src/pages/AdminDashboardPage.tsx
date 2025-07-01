@@ -1,8 +1,8 @@
 import { useAuth } from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
-import { ProfileSection, SubscriptionsSection } from "../components";
+import AdminDashboardContent from "../components/admin/AdminDashboardContent";
 
-const DashboardPage = () => {
+const AdminDashboardPage = () => {
   const { isAuthenticated, user } = useAuth();
 
   if (!isAuthenticated) {
@@ -20,29 +20,23 @@ const DashboardPage = () => {
     );
   }
 
-  if (user.role === "admin") {
-    return <Navigate to="/admin/dashboard" replace />;
+  if (user.role !== "admin") {
+    return <Navigate to="/dashboard" replace />;
   }
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-green-900 mb-2">Dashboard</h1>
+          <h1 className="text-4xl font-bold text-green-900 mb-2">
+            Admin Dashboard
+          </h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-4">
-            <ProfileSection />
-          </div>
-
-          <div className="lg:col-span-8">
-            <SubscriptionsSection />
-          </div>
-        </div>
+        <AdminDashboardContent />
       </div>
     </div>
   );
 };
 
-export default DashboardPage;
+export default AdminDashboardPage;

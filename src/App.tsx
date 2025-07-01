@@ -10,6 +10,7 @@ import RegisterPage from "./pages/RegisterPage";
 import VerifyOTPPage from "./pages/VerifyOTPPage";
 import AuthSuccessPage from "./pages/AuthSuccessPage";
 import DashboardPage from "./pages/DashboardPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
 import { tokenManager } from "./utils/tokenManager";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/verify-otp" element={<VerifyOTPPage />} />
         <Route path="/success" element={<AuthSuccessPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
       </Routes>
       <Footer />
     </AuthProvider>
