@@ -1,5 +1,3 @@
-Of course, here is the English version of the SEA Catering documentation.
-
 # SEA Catering
 
 SEA Catering is a web-based meal plan & subscription application that helps customers easily select, order, and manage healthy meal packages. Built using React, TypeScript, and Vite, this application offers a modern, responsive, and fast user experience.
@@ -8,16 +6,16 @@ SEA Catering is a web-based meal plan & subscription application that helps cust
 
 ## Table of Contents
 
-- [Features](https://www.google.com/search?q=%23features)
-- [Tech Stack](https://www.google.com/search?q=%23tech-stack)
-- [Getting Started](https://www.google.com/search?q=%23getting-started)
-- [Project Structure](https://www.google.com/search?q=%23project-structure)
-- [Environment Variables](https://www.google.com/search?q=%23environment-variables)
-- [Available Scripts](https://www.google.com/search?q=%23available-scripts)
-- [Deployment](https://www.google.com/search?q=%23deployment)
-- [Contributing](https://www.google.com/search?q=%23contributing)
-- [License](https://www.google.com/search?q=%23license)
-- [Acknowledgements](https://www.google.com/search?q=%23acknowledgements)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Environment Variables](#environment-variables)
+- [Available Scripts](#available-scripts)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
 
 ---
 
@@ -76,7 +74,7 @@ SEA Catering is a web-based meal plan & subscription application that helps cust
     cp .env.example .env
     ```
 
-    > _Fill in the `.env` file if necessary (see [Environment Variables](https://www.google.com/search?q=%23environment-variables))._
+    > _Fill in the `.env` file if necessary (see [Environment Variables](#environment-variables))._
 
 4.  **Start development server**
 
@@ -126,19 +124,6 @@ src/
 - The `.env.example` file is available as a reference.
 - For standard development, there are no mandatory variables.
 - If you add an external API integration, add the variables to `.env` and document them here.
-
----
-
-## Contributing
-
-Contributions are welcome\!
-Please fork this repository, create a new branch, and submit a pull request.
-
-**Quick guide:**
-
-- Follow the existing code style (see ESLint & Tailwind)
-- Use TypeScript for all components
-- Include a clear description in every PR
 
 ---
 
