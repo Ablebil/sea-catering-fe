@@ -4,6 +4,8 @@ export { default as WelcomeSection } from "./landing/WelcomeSection";
 
 export { default as MealPlanModal } from "./mealplan/MealPlanModal";
 export { default as MealPlanHorizontalScroll } from "./mealplan/MealPlanHorizontalScroll";
+export { default as StatsSection } from "./mealplan/StatsSection";
+export { default as FAQSection } from "./mealplan/FAQSection";
 
 export { default as TestimonialSection } from "./testimonial/TestimonialSection";
 

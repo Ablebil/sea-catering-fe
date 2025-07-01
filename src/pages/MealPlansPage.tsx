@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { MealPlanModal, MealPlanHorizontalScroll } from "../components";
+import {
+  MealPlanModal,
+  MealPlanHorizontalScroll,
+  StatsSection,
+  FAQSection,
+} from "../components";
 import { mealPlanService } from "../api/services/mealPlanService";
 import type { MealPlan } from "../types/MealPlan";
 import { LoadingSpinner } from "../components";
@@ -51,20 +56,35 @@ const MealPlansPage = () => {
   }
 
   if (error) {
-    return <div className="text-center py-10 text-red-600">{error}</div>;
+    return (
+      <div className="min-h-screen bg-gray-50 py-8">
+        <div className="max-w-2xl mx-auto px-4">
+          <div className="text-center text-red-600">{error}</div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center text-green-900">
-        Our Meal Plans
-      </h1>
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-green-900 mb-2">
+            Our Meal Plans
+          </h1>
+        </div>
 
-      <MealPlanHorizontalScroll plans={plans} onSeeMore={handleSeeMore} />
+        <div className="mb-8">
+          <MealPlanHorizontalScroll plans={plans} onSeeMore={handleSeeMore} />
+        </div>
 
-      {selectedPlan && (
-        <MealPlanModal plan={selectedPlan} onClose={handleCloseModal} />
-      )}
+        <StatsSection />
+        <FAQSection />
+
+        {selectedPlan && (
+          <MealPlanModal plan={selectedPlan} onClose={handleCloseModal} />
+        )}
+      </div>
     </div>
   );
 };
