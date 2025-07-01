@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { AuthLayout, FormInput } from "../components";
 import { authService } from "../api/services/authService";
 import { useAuth } from "../hooks/useAuth";
+import { getUserFromToken } from "../utils/jwtUtils";
 import type { ApiError } from "../api/api";
 
 const VerifyOTPPage = () => {
@@ -57,7 +58,16 @@ const VerifyOTPPage = () => {
           response.payload.refresh_token,
           false
         );
-        navigate("/dashboard");
+
+        setTimeout(() => {
+          const userFromToken = getUserFromToken();
+
+          if (userFromToken?.role === "admin") {
+            navigate("/admin/dashboard");
+          } else {
+            navigate("/dashboard");
+          }
+        }, 100);
       }
     } catch (error) {
       console.error("OTP verification error:", error);

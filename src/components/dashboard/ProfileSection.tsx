@@ -1,35 +1,12 @@
-import { useState, useEffect } from "react";
-import { userService } from "../../api/services/userService";
-import type { User } from "../../types/User";
-import LoadingSpinner from "../common/LoadingSpinner";
+import { useAuth } from "../../hooks/useAuth";
 
 const ProfileSection = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const { user } = useAuth();
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const userData = await userService.getProfile();
-        setUser(userData);
-      } catch (err) {
-        setError("Failed to load profile information");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProfile();
-  }, []);
-
-  if (loading) return <LoadingSpinner text="Loading profile..." />;
-
-  if (error) {
+  if (!user) {
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-        <p className="text-red-700">{error}</p>
+        <p className="text-red-700">User information not available</p>
       </div>
     );
   }
@@ -49,7 +26,7 @@ const ProfileSection = () => {
               Full Name
             </label>
             <div className="px-3 py-2 border border-gray-300 rounded-lg bg-gray-50">
-              <span className="text-gray-900">{user?.name}</span>
+              <span className="text-gray-900">{user.name}</span>
             </div>
           </div>
 
@@ -58,7 +35,7 @@ const ProfileSection = () => {
               Email Address
             </label>
             <div className="px-3 py-2 border border-gray-300 rounded-lg bg-gray-50">
-              <span className="text-gray-900">{user?.email}</span>
+              <span className="text-gray-900">{user.email}</span>
             </div>
           </div>
 
@@ -79,9 +56,7 @@ const ProfileSection = () => {
           </h3>
           <div className="grid grid-cols-1 gap-3">
             <div className="bg-green-50 rounded-lg p-3">
-              <div className="text-2xl font-bold text-green-700">
-                {user ? "✓" : "0"}
-              </div>
+              <div className="text-2xl font-bold text-green-700">✓</div>
               <div className="text-xs text-green-600">Account Active</div>
             </div>
           </div>

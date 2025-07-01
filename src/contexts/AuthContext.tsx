@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useCallback } from "react";
 import { tokenManager } from "../utils/tokenManager";
 import { getUserFromToken } from "../utils/jwtUtils";
 import type { User } from "../types/User";
@@ -26,6 +26,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
 
+  const logout = useCallback(() => {
+    tokenManager.clearTokens();
+    setIsAuthenticated(false);
+    setUser(null);
+  }, []);
+
   useEffect(() => {
     const checkAuth = async () => {
       const hasTokens = tokenManager.hasValidTokens();
@@ -47,7 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     checkAuth();
-  }, []);
+  }, [logout]);
 
   const login = (
     accessToken: string,
@@ -61,12 +67,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (userFromToken) {
       setUser(userFromToken);
     }
-  };
-
-  const logout = () => {
-    tokenManager.clearTokens();
-    setIsAuthenticated(false);
-    setUser(null);
   };
 
   const value = {

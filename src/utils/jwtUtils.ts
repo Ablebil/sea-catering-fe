@@ -17,9 +17,7 @@ export const decodeJWT = (token: string): JWTPayload | null => {
     }
 
     const payload = parts[1];
-
     const paddedPayload = payload + "=".repeat((4 - (payload.length % 4)) % 4);
-
     const decodedPayload = atob(paddedPayload);
 
     return JSON.parse(decodedPayload) as JWTPayload;
