@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { StarIcon } from "@heroicons/react/24/solid";
+import {
+  StarIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/24/solid";
 import type { Testimonial } from "../../types/Testimonial";
 
 interface TestimonialCarouselProps {
@@ -11,101 +15,168 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Batasi testimonials maksimal 6
+  const displayedTestimonials = testimonials.slice(0, 6);
+
   useEffect(() => {
+    if (displayedTestimonials.length === 0) return;
+
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
-        prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
+        prevIndex === displayedTestimonials.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000);
+    }, 4000);
 
     return () => clearInterval(interval);
-  }, [testimonials.length]);
+  }, [displayedTestimonials.length]);
+
+  const goToPrevious = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? displayedTestimonials.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === displayedTestimonials.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const renderStars = (rating: number) => (
+    <div className="flex items-center gap-1 mb-3">
+      {[...Array(5)].map((_, idx) => (
+        <StarIcon
+          key={idx}
+          className={`w-5 h-5 ${
+            idx < rating ? "text-yellow-400" : "text-gray-300"
+          }`}
+        />
+      ))}
+    </div>
+  );
+
+  if (displayedTestimonials.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-gray-500 text-lg">No testimonials available yet.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="mb-12 max-w-6xl mx-auto px-2">
-      {/* Desktop View */}
-      <div className="hidden md:grid grid-cols-2 lg:grid-cols-5 gap-4">
-        {testimonials.map((t) => (
-          <div
-            key={t.id}
-            className="bg-white rounded-lg shadow-md p-4 flex flex-col"
-          >
-            <img
-              src={t.photo_url}
-              alt="User upload"
-              className="w-full h-32 object-cover rounded mb-3"
-            />
-            <p className="text-gray-700 mb-2 italic break-words">
-              "{t.message}"
-            </p>
-            <div className="flex items-center gap-1 mb-1">
-              {[...Array(5)].map((_, idx) => (
-                <StarIcon
-                  key={idx}
-                  className={`w-5 h-5 ${
-                    idx < t.rating ? "text-yellow-500" : "text-gray-300"
-                  }`}
-                />
-              ))}
+    <div className="mb-12 max-w-6xl mx-auto px-4">
+      {/* Desktop View - Enhanced Grid */}
+      <div className="hidden lg:block">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {displayedTestimonials.map((testimonial) => (
+            <div
+              key={testimonial.id}
+              className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 transform hover:-translate-y-1"
+            >
+              {/* User Image with Gradient Border */}
+              <div className="relative mb-4">
+                <div className="w-16 h-16 mx-auto rounded-full p-0.5 bg-gradient-to-r from-green-400 to-green-600">
+                  <img
+                    src={testimonial.photo_url}
+                    alt={testimonial.name}
+                    className="w-full h-full object-cover rounded-full border-2 border-white"
+                  />
+                </div>
+              </div>
+
+              {/* Rating */}
+              <div className="flex justify-center mb-4">
+                {renderStars(testimonial.rating)}
+              </div>
+
+              {/* Message */}
+              <blockquote className="text-gray-700 text-center mb-4 leading-relaxed italic">
+                "{testimonial.message}"
+              </blockquote>
+
+              {/* Author */}
+              <div className="text-center">
+                <p className="font-semibold text-green-800 text-lg">
+                  {testimonial.name}
+                </p>
+                <div className="w-12 h-0.5 bg-gradient-to-r from-green-400 to-green-600 mx-auto mt-2"></div>
+              </div>
             </div>
-            <p className="text-sm font-semibold text-green-800 mt-auto">
-              – {t.name}
-            </p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      {/* Mobile View */}
-      <div className="block md:hidden">
-        <div className="overflow-hidden w-full flex justify-center">
+      {/* Mobile/Tablet View - Enhanced Carousel */}
+      <div className="block lg:hidden relative">
+        <div className="overflow-hidden rounded-2xl">
           <div
             className="flex transition-transform duration-500 ease-in-out"
             style={{
               transform: `translateX(-${currentIndex * 100}%)`,
-              width: `${testimonials.length * 100}%`,
             }}
           >
-            {testimonials.map((t) => (
-              <div
-                key={t.id}
-                className="flex-shrink-0 w-full flex justify-center"
-                style={{ width: "100%" }}
-              >
-                <div className="bg-white rounded-lg shadow-md p-4 flex flex-col w-[280px] h-[360px] mx-auto">
-                  <img
-                    src={t.photo_url}
-                    alt="User upload"
-                    className="w-full h-32 object-cover rounded mb-3"
-                  />
-                  <p className="text-gray-700 mb-2 italic break-words">
-                    "{t.message}"
-                  </p>
-                  <div className="flex items-center gap-1 mb-1">
-                    {[...Array(5)].map((_, idx) => (
-                      <StarIcon
-                        key={idx}
-                        className={`w-5 h-5 ${
-                          idx < t.rating ? "text-yellow-500" : "text-gray-300"
-                        }`}
+            {displayedTestimonials.map((testimonial) => (
+              <div key={testimonial.id} className="flex-shrink-0 w-full px-4">
+                <div className="bg-white rounded-2xl shadow-lg p-8 mx-auto max-w-md border border-gray-100">
+                  {/* User Image */}
+                  <div className="relative mb-6">
+                    <div className="w-20 h-20 mx-auto rounded-full p-0.5 bg-gradient-to-r from-green-400 to-green-600">
+                      <img
+                        src={testimonial.photo_url}
+                        alt={testimonial.name}
+                        className="w-full h-full object-cover rounded-full border-2 border-white"
                       />
-                    ))}
+                    </div>
                   </div>
-                  <p className="text-sm font-semibold text-green-800 mt-auto">
-                    – {t.name}
-                  </p>
+
+                  {/* Rating */}
+                  <div className="flex justify-center mb-6">
+                    {renderStars(testimonial.rating)}
+                  </div>
+
+                  {/* Message */}
+                  <blockquote className="text-gray-700 text-center mb-6 leading-relaxed italic text-lg">
+                    "{testimonial.message}"
+                  </blockquote>
+
+                  {/* Author */}
+                  <div className="text-center">
+                    <p className="font-semibold text-green-800 text-xl">
+                      {testimonial.name}
+                    </p>
+                    <div className="w-16 h-0.5 bg-gradient-to-r from-green-400 to-green-600 mx-auto mt-3"></div>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="flex justify-center gap-2 mt-4">
-          {testimonials.map((_, i) => (
+        {/* Navigation Arrows */}
+        <button
+          onClick={goToPrevious}
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-green-600 p-2 rounded-full shadow-lg transition duration-200 z-10"
+        >
+          <ChevronLeftIcon className="w-6 h-6" />
+        </button>
+
+        <button
+          onClick={goToNext}
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-green-600 p-2 rounded-full shadow-lg transition duration-200 z-10"
+        >
+          <ChevronRightIcon className="w-6 h-6" />
+        </button>
+
+        {/* Enhanced Indicators */}
+        <div className="flex justify-center gap-2 mt-6">
+          {displayedTestimonials.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentIndex(i)}
-              className={`w-3 h-3 rounded-full transition cursor-pointer ${
-                currentIndex === i ? "bg-green-600" : "bg-gray-300"
+              className={`transition-all duration-300 rounded-full ${
+                currentIndex === i
+                  ? "w-8 h-3 bg-green-600"
+                  : "w-3 h-3 bg-gray-300 hover:bg-gray-400"
               }`}
             />
           ))}
