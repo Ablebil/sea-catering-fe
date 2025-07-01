@@ -8,3 +8,4 @@ export { default as VerifyOTPPage } from "./VerifyOTPPage";
 export { default as AuthSuccessPage } from "./AuthSuccessPage";
 export { default as DashboardPage } from "./DashboardPage";
 export { default as AdminDashboardPage } from "./AdminDashboardPage";
+export { default as NotFoundPage } from "./NotFoundPage";

@@ -13,6 +13,7 @@ import {
   AuthSuccessPage,
   DashboardPage,
   AdminDashboardPage,
+  NotFoundPage,
 } from "./pages";
 import { tokenManager } from "./utils/tokenManager";
 
@@ -35,6 +36,7 @@ function App() {
         <Route path="/success" element={<AuthSuccessPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
     </AuthProvider>
