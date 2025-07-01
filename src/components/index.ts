@@ -15,6 +15,9 @@ export { default as SubscriptionForm } from "./subscription/SubscriptionForm";
 export { default as SubscriptionBenefitsSection } from "./subscription/SubscriptionBenefitsSection";
 export { default as SubscriptionStepsSection } from "./subscription/SubscriptionStepsSection";
 
+export {default as ContactInfo} from './contact/ContactInfo'
+export {default as ContactForm} from './contact/ContactForm'
+
 export { default as ProfileSection } from "./dashboard/ProfileSection";
 export { default as SubscriptionsSection } from "./dashboard/SubscriptionsSection";
 

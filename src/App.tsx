@@ -5,6 +5,7 @@ import { Navbar, Footer } from "./components";
 import HomePage from "./pages/HomePage";
 import MealPlansPage from "./pages/MealPlansPage";
 import SubscriptionPage from "./pages/SubscriptionPage";
+import ContactPage from "./pages/ContactPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import VerifyOTPPage from "./pages/VerifyOTPPage";
@@ -26,6 +27,7 @@ function App() {
         <Route path="/meal-plans" element={<MealPlansPage />} />
         <Route path="/subscription" element={<SubscriptionPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/verify-otp" element={<VerifyOTPPage />} />
         <Route path="/success" element={<AuthSuccessPage />} />
