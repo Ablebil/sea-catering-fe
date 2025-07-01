@@ -9,6 +9,9 @@ export { default as TestimonialSection } from "./testimonial/TestimonialSection"
 
 export { default as SubscriptionForm } from "./subscription/SubscriptionForm";
 
+export { default as ProfileSection } from "./dashboard/ProfileSection";
+export { default as SubscriptionsSection } from "./dashboard/SubscriptionsSection";
+
 export { default as Navbar } from "./layout/Navbar";
 export { default as Footer } from "./layout/Footer";
 export { default as AuthLayout } from "./layout/AuthLayout";

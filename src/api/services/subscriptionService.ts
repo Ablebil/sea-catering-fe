@@ -1,4 +1,8 @@
 import { apiService, type ApiResponse } from "../api";
+import type {
+  Subscription,
+  PauseSubscriptionRequest,
+} from "../../types/Subscription";
 
 export interface SubscriptionRequest {
   name: string;
@@ -24,6 +28,27 @@ class SubscriptionService {
       "/subscriptions",
       data
     );
+  }
+
+  async getUserSubscriptions(): Promise<Subscription[]> {
+    const response = await apiService.get<ApiResponse<Subscription[]>>(
+      "/subscriptions"
+    );
+    return response.payload || [];
+  }
+
+  async pauseSubscription(
+    id: string,
+    data: PauseSubscriptionRequest
+  ): Promise<ApiResponse<Subscription>> {
+    return apiService.put<ApiResponse<Subscription>>(
+      `/subscriptions/${id}/pause`,
+      data
+    );
+  }
+
+  async cancelSubscription(id: string): Promise<ApiResponse<Subscription>> {
+    return apiService.delete<ApiResponse<Subscription>>(`/subscriptions/${id}`);
   }
 }
 
