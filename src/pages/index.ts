@@ -1,0 +1,10 @@
+export { default as HomePage } from "./HomePage";
+export { default as MealPlansPage } from "./MealPlansPage";
+export { default as SubscriptionPage } from "./SubscriptionPage";
+export { default as ContactPage } from "./ContactPage";
+export { default as LoginPage } from "./LoginPage";
+export { default as RegisterPage } from "./RegisterPage";
+export { default as VerifyOTPPage } from "./VerifyOTPPage";
+export { default as AuthSuccessPage } from "./AuthSuccessPage";
+export { default as DashboardPage } from "./DashboardPage";
+export { default as AdminDashboardPage } from "./AdminDashboardPage";

@@ -2,16 +2,18 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { AuthProvider } from "./contexts/AuthContext";
 import { Navbar, Footer } from "./components";
-import HomePage from "./pages/HomePage";
-import MealPlansPage from "./pages/MealPlansPage";
-import SubscriptionPage from "./pages/SubscriptionPage";
-import ContactPage from "./pages/ContactPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import VerifyOTPPage from "./pages/VerifyOTPPage";
-import AuthSuccessPage from "./pages/AuthSuccessPage";
-import DashboardPage from "./pages/DashboardPage";
-import AdminDashboardPage from "./pages/AdminDashboardPage";
+import {
+  HomePage,
+  MealPlansPage,
+  SubscriptionPage,
+  ContactPage,
+  LoginPage,
+  RegisterPage,
+  VerifyOTPPage,
+  AuthSuccessPage,
+  DashboardPage,
+  AdminDashboardPage,
+} from "./pages";
 import { tokenManager } from "./utils/tokenManager";
 
 function App() {
