@@ -371,7 +371,7 @@ const SubscriptionForm = () => {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-300 cursor-pointer"
+            className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
             {submitting ? "Processing..." : "Create Subscription & Pay"}
           </button>

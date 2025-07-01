@@ -72,6 +72,10 @@ const MealPlansPage = () => {
           <h1 className="text-4xl font-bold text-green-900 mb-2">
             Our Meal Plans
           </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Choose from our variety of healthy and delicious meal plans designed
+            by nutritionists to fit your lifestyle and dietary needs.
+          </p>
         </div>
 
         <div className="mb-8">
@@ -80,7 +84,6 @@ const MealPlansPage = () => {
 
         <StatsSection />
         <FAQSection />
-
         {selectedPlan && (
           <MealPlanModal plan={selectedPlan} onClose={handleCloseModal} />
         )}
