@@ -2,59 +2,50 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { LoadingSpinner } from "../components";
-import { getUserFromToken } from "../utils/jwtUtils";
 
 const AuthSuccessPage = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const [error, setError] = useState<string | null>(null);
+  const [hasLoggedIn, setHasLoggedIn] = useState(false);
 
   useEffect(() => {
-    const handleAuthSuccess = () => {
-      const accessToken = searchParams.get("access_token");
-      const refreshToken = searchParams.get("refresh_token");
-      const errorParam = searchParams.get("error");
+    const accessToken = searchParams.get("access_token");
+    const refreshToken = searchParams.get("refresh_token");
+    const errorParam = searchParams.get("error");
 
-      if (errorParam) {
-        setError("Authentication failed. Please try again.");
-        setTimeout(() => {
-          navigate("/login", { replace: true });
-        }, 3000);
-        return;
+    if (errorParam) {
+      setError("Authentication failed. Please try again.");
+      setTimeout(() => {
+        navigate("/login", { replace: true });
+      }, 3000);
+      return;
+    }
+
+    if (!accessToken || !refreshToken) {
+      setError("Invalid authentication response. Please try again.");
+      setTimeout(() => {
+        navigate("/login", { replace: true });
+      }, 3000);
+      return;
+    }
+
+    if (!hasLoggedIn) {
+      login(accessToken, refreshToken, false);
+      setHasLoggedIn(true);
+    }
+  }, [searchParams, navigate, login, hasLoggedIn]);
+
+  useEffect(() => {
+    if (user) {
+      if (user.role === "admin") {
+        navigate("/admin/dashboard", { replace: true });
+      } else {
+        navigate("/dashboard", { replace: true });
       }
-
-      if (!accessToken || !refreshToken) {
-        setError("Invalid authentication response. Please try again.");
-        setTimeout(() => {
-          navigate("/login", { replace: true });
-        }, 3000);
-        return;
-      }
-
-      try {
-        login(accessToken, refreshToken, false);
-
-        const userFromToken = getUserFromToken();
-
-        setTimeout(() => {
-          if (userFromToken?.role === "admin") {
-            navigate("/admin/dashboard", { replace: true });
-          } else {
-            navigate("/dashboard", { replace: true });
-          }
-        }, 2000);
-      } catch (error) {
-        console.error("Login error:", error);
-        setError("Failed to complete login. Please try again.");
-        setTimeout(() => {
-          navigate("/login", { replace: true });
-        }, 3000);
-      }
-    };
-
-    handleAuthSuccess();
-  }, [searchParams, navigate, login]);
+    }
+  }, [user, navigate]);
 
   if (error) {
     return (
